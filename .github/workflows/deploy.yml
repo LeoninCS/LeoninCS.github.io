@@ -2,23 +2,19 @@ name: Deploy Vue to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ]  # 每次推送到 main 就部署
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # 明确授予写入权限（关键）
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
+      contents: write  # 关键：允许写 gh-pages 分支
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Set up Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -28,12 +24,12 @@ jobs:
         run: npm ci
 
       - name: Build project
-        run: npm run build && ls -la ./dist  # 打包后显示dist内容，验证是否生成
+        run: npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist  # 确保指向打包后的dist目录
+          publish_dir: ./dist
           publish_branch: gh-pages
-          force_orphan: true  # 强制覆盖旧分支内容
+          force_orphan: true  # 每次强制清空旧内容
