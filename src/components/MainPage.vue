@@ -1,5 +1,5 @@
 <template>
-    <h1 @click="$router.push('/main')">Absurdity is a start!</h1>
+    <h1>主界面</h1>
 </template>
 
 
@@ -9,11 +9,10 @@
 
 <style scoped>
     h1 {
-        color: aquamarine;
+        color: yellow;
         font-size: 100px;
         text-align: center;
         margin-top: 10%;
-        cursor: pointer;
     }
     body {
         background-color: darkgrey;

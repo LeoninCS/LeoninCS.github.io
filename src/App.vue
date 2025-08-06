@@ -1,25 +1,16 @@
 <template>
-  <!-- 单一根元素包裹HomePage组件 -->
-  <div>
-    <HomePage />
-  </div>
+  <!-- 路由出口：所有匹配的组件将在这里渲染 -->
+  <router-view />
 </template>
 
 <script>
-// 导入HomePage组件
-import HomePage from './components/HomePage.vue';
-
+// 不需要直接导入组件，路由会自动管理
 export default {
-  name: 'App',
-  // 注册组件
-  components: {
-    HomePage
-  }
+  name: 'App'
 }
 </script>
 
 <style>
-/* 可选：添加全局样式 */
 body {
   margin: 0;
   padding: 0;
