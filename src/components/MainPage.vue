@@ -14,7 +14,4 @@
         text-align: center;
         margin-top: 10%;
     }
-    body {
-        background-color: darkgrey;
-    }
 </style>

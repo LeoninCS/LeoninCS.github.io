@@ -15,7 +15,4 @@
         margin-top: 10%;
         cursor: pointer;
     }
-    body {
-        background-color: darkgrey;
-    }
 </style>
