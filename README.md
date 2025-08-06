@@ -1,4 +1,5 @@
-网站地址:https://leonincs.github.io/
+网站地址:https://leonincs.github.io/  
+<br>
 使用方法:直接访问网站即可
 
 ---
@@ -48,8 +49,8 @@
 如果你对我的网站有任何建议、希望看到更多内容，或者发现了资源链接失效、内容不准确等情况，欢迎通过以下方式联系我：
 
 - 作者QQ：2329988157
-- GitHub 仓库 Issue：[https://github.com/LeoninCS/LeoninCS.github.io/issues]
-- 邮箱：[2329988157@qq.com]
+- GitHub 仓库 Issue：https://github.com/LeoninCS/LeoninCS.github.io/issues
+- 邮箱：2329988157@qq.com
 
 ---
 
