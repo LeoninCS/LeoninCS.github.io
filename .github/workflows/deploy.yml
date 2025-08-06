@@ -1,0 +1,44 @@
+name: Deploy Vue to GitHub Pages
+
+# 触发条件：当推送到main分支时执行
+on:
+  push:
+    branches: [ main ]  # 如果你用的是master分支，这里改为master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest  # 使用Ubuntu系统运行
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}  # 避免并发部署冲突
+
+    steps:
+      # 1. 拉取代码
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 拉取完整历史，避免部分插件报错
+
+      # 2. 安装Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20  # 与本地Node版本匹配
+          cache: 'npm'  # 自动缓存npm依赖
+
+      # 3. 安装依赖
+      - name: Install dependencies
+        run: npm ci  # 比npm install更严格，优先使用package-lock.json
+
+      # 4. 打包项目
+      - name: Build project
+        run: npm run build  # 执行打包命令，生成dist文件夹
+
+      # 5. 部署到GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # GitHub自动生成的令牌
+          publish_dir: ./dist  # 要部署的文件夹（打包后的dist）
+          publish_branch: gh-pages  # 部署到的目标分支
+          force_orphan: true  # 清理历史提交，保持分支简洁
+    
