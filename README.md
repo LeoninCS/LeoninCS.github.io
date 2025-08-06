@@ -1,5 +1,68 @@
-# Vue 3 + Vite
+网站地址:https://leonincs.github.io/
+使用方法:直接访问网站即可
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+---
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+# 🌐 个人网站介绍
+
+欢迎来到我的个人网站：**资源整合站**，这里是我为热爱学习、渴望提升技术能力、喜欢探索新工具和技术的人准备的一站式资源分享平台。
+
+---
+
+## 📁 网站内容概览
+
+### 1. **计算机自学资料**
+- 包含编程基础、Web 开发、AI 与机器学习、系统与网络、数据库、工具与开发环境等领域的学习资源
+- 提供图文教程、视频链接、书籍推荐、实战项目示例
+- 目标是帮助每一个学习者找到适合自己的学习路径
+
+### 2. **各类免费工具**
+- 收集并整理了数十款免费的开发工具、设计工具、生产力工具等
+- 按类别划分，如代码编辑器、IDE、界面设计工具、数据分析工具、系统工具等
+- 提供工具的使用说明、下载链接以及使用场景推荐
+
+### 3. **免费资源分享**
+- 包含开源项目、GitHub 优质代码库、免费图标、字体、素材、模板等
+- 帮助你快速搭建项目、提升设计效果、节省开发成本
+- 所有资源都来源于开源社区和可信来源，确保安全可用
+
+---
+
+## 📱 为什么选择这个网站？
+
+- **内容全面**：涵盖从初学者到进阶者的各种资源
+- **更新及时**：我会持续收集最新、最实用的资源并发布
+- **免费开放**：所有资源均为免费提供，只要你愿意学习和使用
+- **极简设计**：界面清爽、易于导航，专注于内容本身
+
+---
+
+## 🧠 我的愿景
+
+我希望这个网站能成为每一位开发者、设计师、技术爱好者的好帮手。通过整理和分享优质资源，减少大家在寻找资料上的时间成本，让更多人能够更高效地成长。
+
+---
+
+## 🤝 欢迎反馈与建议
+
+如果你对我的网站有任何建议、希望看到更多内容，或者发现了资源链接失效、内容不准确等情况，欢迎通过以下方式联系我：
+
+- 作者QQ：2329988157
+- GitHub 仓库 Issue：[https://github.com/LeoninCS/LeoninCS.github.io/issues]
+- 邮箱：[2329988157@qq.com]
+
+---
+
+## 📚 项目技术栈
+
+- 前端：Vue.js + Vite + Tailwind CSS
+- 部署：GitHub Pages + GitHub Actions
+- 开源：使用开源组件和模块，保持轻量高效
+
+---
+
+## 📌 最后提醒
+
+本网站不提供任何 **商用授权** 或 **版权文件**，所有资源均为 **免费开源项目** 或 公共领域资源，使用时请遵守开源协议和版权规范。
+
+---
