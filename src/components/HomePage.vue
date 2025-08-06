@@ -1,6 +1,7 @@
 <template>
   <div class="min-h-screen bg-gray-100 text-gray-800">
     <div class="container mx-auto px-4 py-8">
+      <!-- 页头 -->
       <header class="mb-8">
         <h1 class="text-4xl font-bold text-indigo-600 mb-2">我的资源站</h1>
         <p class="text-lg text-gray-600">分享计算机自学资料、各类免费工具、流行资源</p>
@@ -53,21 +54,29 @@
         </div>
       </section>
 
-      <!-- 底部介绍区 -->
-      <footer class="text-center py-6">
+      <!-- 底部信息 -->
+      <footer class="text-center py-6 border-t border-gray-200">
         <p class="text-gray-500">© 2025 我的资源站 | 所有内容均基于开源社区，免费开放</p>
-        <p class="text-sm text-gray-500">欢迎关注我的 GitHub，获取更多资源更新和项目动态</p>
+        <p class="text-sm text-gray-500 mt-2">欢迎关注我的 GitHub，获取更多资源更新和项目动态</p>
       </footer>
     </div>
   </div>
 </template>
 
 <script>
+// 导入子组件
+import ResourceCard from './ResourceCard.vue';
+import CategoryCard from './CategoryCard.vue';
+
 export default {
-  name: 'HomePage'
+  name: 'HomePage',
+  components: {
+    ResourceCard,
+    CategoryCard
+  }
 }
 </script>
 
 <style>
-/* 可以根据需要自定义 Tailwind 配置 */
+/* 可自定义全局样式 */
 </style>

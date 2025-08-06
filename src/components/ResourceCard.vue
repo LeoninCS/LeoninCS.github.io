@@ -1,40 +1,39 @@
 <template>
-  <div class="bg-white rounded-lg shadow-lg p-6 transition transform hover:scale-105">
-    <div class="text-3xl font-bold mb-1 text-indigo-500">{{ title }}</div>
-    <div class="text-gray-600 mb-4">{{ description }}</div>
-    <div class="flex justify-center">
-      <a 
-        :href="link" 
-        class="text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-full font-medium transition"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        前往查看
-      </a>
+  <a 
+    :href="link" 
+    class="block bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 border border-gray-100"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <div class="text-3xl mb-4">{{ icon }}</div>
+    <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ title }}</h3>
+    <p class="text-gray-600">{{ description }}</p>
+    <div class="mt-4 text-indigo-600 font-medium flex items-center">
+      查看详情 →
     </div>
-    <div class="mt-2 text-sm text-gray-500 flex items-center justify-center">
-      <span class="mr-2">{{ icon }}</span>
-      <span>热门资源</span>
-    </div>
-  </div>
+  </a>
 </template>
 
 <script>
 export default {
   name: 'ResourceCard',
   props: {
+    // 卡片标题
     title: {
       type: String,
       required: true
     },
+    // 卡片描述
     description: {
       type: String,
       required: true
     },
+    // 跳转链接
     link: {
       type: String,
       required: true
     },
+    // 图标（Emoji）
     icon: {
       type: String,
       required: true
@@ -42,3 +41,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+a {
+  text-decoration: none;
+}
+a:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s ease;
+}
+</style>
