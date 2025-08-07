@@ -171,7 +171,7 @@
         margin-top: 2vh;
     }
 }
-    @media screen and (max-width: 430px) {
+    @media screen and (max-width: 1170px) {
     #main {
         margin: 4vh auto;
         width: 94vw;
