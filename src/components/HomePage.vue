@@ -114,4 +114,62 @@
         transform: scale(1.05);
         transition: all 0.2s;
     }
+    @media screen and (max-width: 768px) {
+    #main {
+        margin: 5vh auto;
+        width: 90vw;
+        height: auto;
+    }
+
+    #top {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #topleft {
+        width: 100%;
+        text-align: center;
+    }
+
+    #topright {
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        margin-top: 2vh;
+    }
+
+    #img {
+        width: 40vw;
+        height: auto;
+        margin: 0;
+        border-radius: 50%;
+    }
+
+    #title {
+        font-size: 6vw;
+    }
+
+    .content {
+        font-size: 5vw;
+        margin-top: 1vh;
+    }
+
+    #bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 4vh;
+    }
+
+    #b1, #b2 {
+        width: 55vw;
+        height: 6vh;
+        font-size: 4vw;
+        border-radius: 10vw;
+        margin-top: 2vh;
+    }
+}
+
 </style>
