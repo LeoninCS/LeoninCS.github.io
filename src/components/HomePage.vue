@@ -170,6 +170,63 @@
         border-radius: 10vw;
         margin-top: 2vh;
     }
+    @media screen and (max-width: 430px) {
+    #main {
+        margin: 4vh auto;
+        width: 94vw;
+        height: auto;
+    }
+
+    #top {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #topleft {
+        width: 100%;
+        text-align: center;
+    }
+
+    #topright {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 2vh;
+    }
+
+    #img {
+        width: 30vw;
+        height: 30vw;
+        border-radius: 50%;
+        margin: 0;
+    }
+
+    #title {
+        font-size: 7vw;
+    }
+
+    .content {
+        font-size: 5.5vw;
+        margin-top: 1.5vh;
+    }
+
+    #bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 4vh;
+    }
+
+    #b1, #b2 {
+        width: 80vw;
+        height: 6vh;
+        font-size: 4.5vw;
+        margin-top: 2vh;
+        border-radius: 4vw;
+    }
+}
+
 }
 
 </style>
