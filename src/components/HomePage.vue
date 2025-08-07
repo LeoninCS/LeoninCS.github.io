@@ -114,6 +114,22 @@
         transform: scale(1.05);
         transition: all 0.2s;
     }
+    
+    @media (hover: hover) {
+    #b1:hover {
+        color: dodgerblue;
+        background-color: #1e40af;
+        transform: scale(1.05);
+        transition: all 0.2s;
+    }
+    #b2:hover {
+        background-color: #b9b7b7;
+        color: #666;
+        transform: scale(1.05);
+        transition: all 0.2s;
+    }
+}
+
     @media screen and (max-width: 768px) {
     #main {
         margin: 5vh auto;
@@ -169,6 +185,7 @@
         font-size: 4vw;
         border-radius: 10vw;
         margin-top: 2vh;
+        color: black;
     }
 }
     @media screen and (max-width: 1170px) {
@@ -225,6 +242,7 @@
         font-size: 4.5vw;
         margin-top: 2vh;
         border-radius: 4vw;
+        color: black;
     }
 }
 
