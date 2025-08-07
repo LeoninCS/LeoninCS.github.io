@@ -170,6 +170,7 @@
         border-radius: 10vw;
         margin-top: 2vh;
     }
+}
     @media screen and (max-width: 430px) {
     #main {
         margin: 4vh auto;
@@ -225,8 +226,6 @@
         margin-top: 2vh;
         border-radius: 4vw;
     }
-}
-
 }
 
 </style>
