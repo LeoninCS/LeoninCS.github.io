@@ -33,85 +33,85 @@
 </script>
 
 <style scoped>
-     
     #main {
-        margin-top: 7%;
-        margin-left: 25%;
-        margin-right: 10%;
-        height: 700px;
-        width: 1300px;
-        
+        margin-top: 10vh; /* 调整为视口高度单位 */
+        margin-left: 26.6vw; /* 计算比例：350px/2560px */
+        margin-right: 5.47vw; /* 140px/2560px */
+        height: 48.61vh; /* 700px/1440px */
+        width: 60.94vw; /* 1560px/2560px (原1300px+左右边距350px+140px) */
     }
-    #top{
+    #top {
         display: inline-block;
+        width: 100%;
     }
-    #topleft{
+    #topleft {
         vertical-align: top;
         display: inline-block;
+        width: 55%;
     }
-    #topright{
+    #topright {
         display: inline-block;
-        height: 400px;
-        width: 400px;
+        height: 27.78vh; /* 400px/1440px */
+        width: 15.63vw; /* 400px/2560px */
     }
     #img {
-        height: 300px;
-        width: 300px;
-        margin-left: 100px;
-        border-radius: 50px;
-        margin-top: 100px;
+        height: 21.83vh; /* 300px/1440px */
+        width: 11.80vw; /* 300px/2560px */
+        margin-left: 3.91vw; /* 100px/2560px */
+        margin-top: 6.94vh; /* 100px/1440px */
+        border-radius: 2.47vw; /* 89px/2560px */
     }
 
     #title {
-        color:aqua;
-        font-size: 80px;
+        color: aqua;
+        font-size: 3.125vw; /* 80px/2560px */
         font-weight: 1000;
-        
     }
     .content {
         color: azure;
-        font-size: 80px;
+        font-size: 3.125vw; /* 80px/2560px */
         font-weight: 1000;
-        margin-top: -80px;
+        margin-top: -5.78vh; /* -80px/1440px */
     }
     #bottom {
         display: inline;
         float: left;
-        margin-top: 0px;
+        margin-top: 0;
+        width: 100%;
+        margin-top: 2vh; /* 增加垂直间距 */
     }
     #b1 {
-        height: 80px;
-        width: 240px;
+        height: 6.56vh; /* 80px/1440px */
+        width: 9.38vw; /* 240px/2560px */
         background-color: dodgerblue;
-        font-size: 40px;
+        font-size: 1.56vw; /* 40px/2560px */
         font-weight: 800;
-        border-radius: 50px;
-        margin-left: 0px;
+        border-radius: 1.95vw; /* 50px/2560px */
+        margin-left: 0;
         border: #1e40af;
         cursor: pointer;
     }
     #b2 {
-        height: 80px;
-        width: 170px;
+        height: 6.56vh; /* 80px/1440px */
+        width: 6.64vw; /* 170px/2560px */
         background-color: rgb(238, 233, 233);
-        font-size: 40px;
+        font-size: 1.56vw; /* 40px/2560px */
         font-weight: 800;
-        border-radius: 50px;
-        margin-left: 40px;
+        border-radius: 1.95vw; /* 50px/2560px */
+        margin-left: 1.56vw; /* 40px/2560px */
         border: rgb(238, 233, 233);
         cursor: pointer;
     }
-    /* 正确写法：#b1:hover */
     #b1:hover {
         color: dodgerblue;
-        background-color: #1e40af; /* 加深蓝色 */
-        transform: scale(1.05); /* 轻微放大 */
-        transition: all 0.2s; /* 过渡动画 */
+        background-color: #1e40af;
+        transform: scale(1.05);
+        transition: all 0.2s;
     }
     #b2:hover {
-        background-color: #b9b7b7; /* 加深灰色 */
-        color: #666; /* 文字颜色稍暗 */
-        transform: scale(1.05); /* 轻微放大 */
-        transition: all 0.2s; /* 过渡动画 */
+        background-color: #b9b7b7;
+        color: #666;
+        transform: scale(1.05);
+        transition: all 0.2s;
     }
 </style>
