@@ -15,7 +15,7 @@
         
         <div id = "bottom">
             <button id = "b1" @click="goMainPage">进入网站</button>
-            <button id = "b2">关于我</button>
+            <button id = "b2" @click="goToAbout">关于我</button>
         </div>
         
     </div>
@@ -26,7 +26,10 @@
     export default {
         methods: {
             goMainPage() {
-                this.$router.push('/MainPage')
+                this.$router.push('/main')
+            },
+            goToAbout(){
+                this.$router.push('/about')
             }
         }
     }

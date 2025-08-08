@@ -2,19 +2,19 @@
   <div id="main">
     <!-- 左侧 logo 和标题区域 -->
     <div class="left-section">
-      <a href="https://leonincs.github.io/#/" target="_self" rel="noopener noreferrer">
+      <a href="https://leonincs.github.io/#/main" target="_self" rel="noopener noreferrer">
         <img src="/public/images/icon.png" alt="Icon" class="logo" />
       </a>
-      <span class="title"><a href="https://leonincs.github.io/#/" class="title">源 选 集</a></span>
+      <span class="title"><a href="https://leonincs.github.io/#/main" class="title">源 选 集</a></span>
     </div>
     <!-- 中间导航区域 -->
     <nav class="nav-section">
       <ul class="nav-list">
-        <li class="nav-item" @click="goMainPage"><a href="#">学习资源</a></li>
-        <li class="nav-item"><a href="#">免费工具</a></li>
-        <li class="nav-item"><a href="#">媒体资源</a></li>
-        <li class="nav-item"><a href="#">匿名树洞</a></li>
-        <li class="nav-item"><a href="#">关于本站</a></li>
+        <li class="nav-item"><a href="https://leonincs.github.io/#/">学习资源</a></li>
+        <li class="nav-item"><a href="https://leonincs.github.io/#/tool">免费工具</a></li>
+        <li class="nav-item"><a href="https://leonincs.github.io/#/media">媒体资源</a></li>
+        <li class="nav-item"><a href="https://leonincs.github.io/#/tree">匿名树洞</a></li>
+        <li class="nav-item"><a href="https://leonincs.github.io/#/about">关于本站</a></li>
       </ul>
     </nav>
     <!-- 右侧搜索和其他功能区域 -->
@@ -71,7 +71,7 @@
 .nav-section {
   display: flex;
   align-items: center;
-  margin-left: -15.5vw;
+  margin-left: -35.5vw;
 }
 
 .nav-list {

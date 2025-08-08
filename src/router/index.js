@@ -4,7 +4,11 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 // 导入组件
 import HomePage from '../components/HomePage.vue';
 import MainPage from '../components/MainPage.vue';
-import DefaultArticleView from '../components/DefaultArticleView.vue'; // 为 /articles 路径添加默认视图
+import AboutPage from '../components/AboutPage.vue';
+import DefaultMainPage from '../components/DefaultMainPage.vue';
+import LearnPage from '../components/LearnPage.vue';
+import ToolPage from '../components/ToolPage.vue';
+import MediaPage from '../components/MediaPage.vue';
 import Article1 from '../components/Article/Article1.vue';
 import Article2 from '../components/Article/Article2.vue';
 import Article3 from '../components/Article/Article3.vue';
@@ -12,6 +16,8 @@ import Article4 from '../components/Article/Article4.vue';
 import Article5 from '../components/Article/Article5.vue';
 import Article6 from '../components/Article/Article6.vue';
 import Article7 from '../components/Article/Article7.vue';
+import Article0 from '../components/Article/Article0.vue';
+import TreeHole from '../components/TreeHole.vue';
 
 const routes = [
   {
@@ -20,14 +26,14 @@ const routes = [
     component: HomePage 
   },
   {
-    path: '/MainPage',
+    path: '/main',
     name: 'ArticlesLayout',
     component: MainPage, 
     children: [
       {
         path: '', 
-        name: 'DefaultArticle',
-        component: DefaultArticleView
+        name: 'DefaultMainPage',
+        component: DefaultMainPage
       },
       {
         path: 'article1',  
@@ -63,6 +69,66 @@ const routes = [
         path: 'article7',  
         name: 'Article7',
         component: Article7
+      }
+    ]
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component:  AboutPage,
+    children: [
+      {
+        path: '',  
+        name: 'AboutArticle',
+        component: Article0
+      }
+    ]
+  },
+  {
+    path: '/tree',
+    name: 'Tree',
+    component:  TreeHole,
+    children: [
+      {
+        path: '',  
+        name: 'TreeArticle',
+        component: Article0
+      }
+    ]
+  },
+  {
+    path: '/learn',
+    name: 'LearnPage',
+    component:  LearnPage,
+    children: [
+      {
+        path: '',  
+        name: 'DefaultLearnPage',
+        component: Article0
+      }
+    ]
+  },
+  {
+    path: '/tool',
+    name: 'ToolPage',
+    component:  ToolPage,
+    children: [
+      {
+        path: '',  
+        name: 'DefaultToolPage',
+        component: Article0
+      }
+    ]
+  },
+  {
+    path: '/media',
+    name: 'MediaPage',
+    component: MediaPage,
+    children: [
+      {
+        path: '',  
+        name: 'DefaultMediaPage',
+        component: Article0
       }
     ]
   }

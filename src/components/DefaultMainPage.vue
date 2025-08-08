@@ -7,7 +7,7 @@
 
 <script>
 export default {
-    name: 'DefaultArticleView'
+    name: 'DefaultMainPage'
 }
 </script>
 
