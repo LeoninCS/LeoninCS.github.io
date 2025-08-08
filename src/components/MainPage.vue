@@ -10,6 +10,7 @@
         <li><router-link to="/MainPage/article4">文章 4：路由与导航</router-link></li>
         <li><router-link to="/MainPage/article5">文章 5：API 请求处理</router-link></li>
         <li><router-link to="/MainPage/article6">文章 6：进阶动画与过渡</router-link></li>
+        <li><router-link to="/MainPage/article7">231 && 321彩蛋</router-link></li>
       </ul>
     </aside>
 

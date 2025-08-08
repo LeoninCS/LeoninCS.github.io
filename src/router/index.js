@@ -11,6 +11,7 @@ import Article3 from '../components/Article/Article3.vue';
 import Article4 from '../components/Article/Article4.vue';
 import Article5 from '../components/Article/Article5.vue';
 import Article6 from '../components/Article/Article6.vue';
+import Article7 from '../components/Article/Article7.vue';
 
 const routes = [
   {
@@ -57,6 +58,11 @@ const routes = [
         path: 'article6',  
         name: 'Article6',
         component: Article6
+      },
+      {
+        path: 'article7',  
+        name: 'Article7',
+        component: Article7
       }
     ]
   }
