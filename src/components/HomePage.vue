@@ -26,7 +26,7 @@
     export default {
         methods: {
             goMainPage() {
-                this.$router.push('/main')
+                this.$router.push('/MainPage')
             }
         }
     }
@@ -35,7 +35,7 @@
 <style scoped>
     #main {
         margin-top: 10vh; /* 调整为视口高度单位 */
-        margin-left: 26.6vw; /* 计算比例：350px/2560px */
+        margin-left: 28.6vw; /* 计算比例：350px/2560px */
         margin-right: 5.47vw; /* 140px/2560px */
         height: 48.61vh; /* 700px/1440px */
         width: 60.94vw; /* 1560px/2560px (原1300px+左右边距350px+140px) */
