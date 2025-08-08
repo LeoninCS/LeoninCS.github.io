@@ -16,45 +16,45 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: HomePage // 应用程序的根路径，可以是一个简单的欢迎页或者跳转页
+    component: HomePage 
   },
   {
-    path: '/MainPage', // 主文章区域的父路径
+    path: '/MainPage',
     name: 'ArticlesLayout',
-    component: MainPage, // MainPage 组件将包含侧边栏和 <router-view>
+    component: MainPage, 
     children: [
       {
-        path: '', // 默认子路由，当访问 /articles 时显示
+        path: '', 
         name: 'DefaultArticle',
         component: DefaultArticleView
       },
       {
-        path: 'article1', // 访问路径为 /articles/article1
+        path: 'article1',  
         name: 'Article1',
         component: Article1
       },
       {
-        path: 'article2', // /articles/article2
+        path: 'article2',  
         name: 'Article2',
         component: Article2
       },
       {
-        path: 'article3', // /articles/article3
+        path: 'article3',  
         name: 'Article3',
         component: Article3
       },
       {
-        path: 'article4', // /articles/article4
+        path: 'article4',  
         name: 'Article4',
         component: Article4
       },
       {
-        path: 'article5', // /articles/article5
+        path: 'article5',  
         name: 'Article5',
         component: Article5
       },
       {
-        path: 'article6', // /articles/article6
+        path: 'article6',  
         name: 'Article6',
         component: Article6
       }

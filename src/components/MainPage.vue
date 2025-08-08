@@ -4,12 +4,12 @@
     <aside class="sidebar" :class="{ collapsed: isCollapsed }">
       <h2 @click="goToDefault">文章导航</h2>
       <ul>
-        <li><router-link to="/articles/article1">文章 1：Vue 基础入门</router-link></li>
-        <li><router-link to="/articles/article2">文章 2：组件通信实践</router-link></li>
-        <li><router-link to="/articles/article3">文章 3：状态管理 Vuex</router-link></li>
-        <li><router-link to="/articles/article4">文章 4：路由与导航</router-link></li>
-        <li><router-link to="/articles/article5">文章 5：API 请求处理</router-link></li>
-        <li><router-link to="/articles/article6">文章 6：进阶动画与过渡</router-link></li>
+        <li><router-link to="/MainPage/article1">文章 1：Vue 基础入门</router-link></li>
+        <li><router-link to="/MainPage/article2">文章 2：组件通信实践</router-link></li>
+        <li><router-link to="/MainPage/article3">文章 3：状态管理 Vuex</router-link></li>
+        <li><router-link to="/MainPage/article4">文章 4：路由与导航</router-link></li>
+        <li><router-link to="/MainPage/article5">文章 5：API 请求处理</router-link></li>
+        <li><router-link to="/MainPage/article6">文章 6：进阶动画与过渡</router-link></li>
       </ul>
     </aside>
 
@@ -48,7 +48,7 @@ export default {
       this.isCollapsed = !this.isCollapsed;
     },
     goToDefault() {
-        this.$router.push('/articles');
+        this.$router.push('/MainPage');
     }
   }
 };
