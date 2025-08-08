@@ -10,7 +10,7 @@
     <!-- 中间导航区域 -->
     <nav class="nav-section">
       <ul class="nav-list">
-        <li class="nav-item"><a href="https://leonincs.github.io/#/">学习资源</a></li>
+        <li class="nav-item"><a href="https://leonincs.github.io/#/learn">学习资源</a></li>
         <li class="nav-item"><a href="https://leonincs.github.io/#/tool">免费工具</a></li>
         <li class="nav-item"><a href="https://leonincs.github.io/#/media">媒体资源</a></li>
         <li class="nav-item"><a href="https://leonincs.github.io/#/tree">匿名树洞</a></li>
@@ -71,7 +71,7 @@
 .nav-section {
   display: flex;
   align-items: center;
-  margin-left: -35.5vw;
+  margin-left: -15.5vw;
 }
 
 .nav-list {
