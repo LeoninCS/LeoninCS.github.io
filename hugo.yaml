@@ -21,7 +21,7 @@ languages:
         weight: 1
         params:
             sidebar:
-                subtitle: "记录、分享、成长"
+                subtitle: "学习记录、技术分享、偶尔发些日常生活。"
 # 第三方服务配置
 #services:
     # Disqus评论系统（使用前需修改为你的shortname）
