@@ -1,5 +1,5 @@
 # 站点基础配置
-baseurl: https://github.com/LeoninCS.github.io/           # 网站根URL
+baseurl: https://leonincs.github.io/           # 网站根URL
 languageCode: zh-cn                     # 默认语言代码
 theme: hugo-theme-stack                 # 使用的主题名称
 title: Leon的小屋                     # 网站标题
