@@ -1,0 +1,186 @@
+# 站点基础配置
+baseurl: https://github.com/LeoninCS.github.io/           # 网站根URL
+languageCode: zh-cn                     # 默认语言代码
+theme: hugo-theme-stack                 # 使用的主题名称
+title: Leon的小屋                     # 网站标题
+copyright: LeoninCS                     # 版权信息
+
+# 国际化配置
+# 支持的语言: ar, bn, ca, de, el, en, es, fr, hu, id, it, ja, ko, nl, pt-br, th, uk, zh-cn, zh-hk, zh-tw
+DefaultContentLanguage: zh-cn              # 默认内容语言
+
+# 如果默认语言是中文/日文/韩文，需设置为true
+# 这将使.Summary和.WordCount对CJK语言正常工作
+hasCJKLanguage: true
+
+# 多语言详细配置
+languages:
+    zh-cn:
+        languageName: 中文
+        title: Leon的小屋
+        weight: 1
+        params:
+            sidebar:
+                subtitle: "记录、分享、成长"
+# 第三方服务配置
+#services:
+    # Disqus评论系统（使用前需修改为你的shortname）
+    #disqus:
+        #shortname: "hugo-theme-stack"
+    # Google Analytics跟踪ID
+    #googleAnalytics:
+        #id:                             # 填入你的GA跟踪ID
+
+# 分页设置
+pagination:
+    pagerSize: 3               # 分页器显示页码数量
+
+# 永久链接格式
+permalinks:
+    post: /p/:slug/                     # 文章URL格式
+    page: /:slug/                       # 页面URL格式
+
+# 主题参数配置
+params:
+    mainSections:
+        - post                         # 主要内容区域
+    featuredImageField: image          # 特色图片字段名
+    rssFullContent: true               # RSS是否包含全文
+    favicon:                           # 网站图标路径，如：/favicon.ico
+
+    # 页脚设置
+    footer:
+        since: 2020                    # 起始年份
+        customText:                    # 自定义文本
+
+    # 日期格式
+    dateFormat:
+        published: Jan 02, 2006        # 发布日期格式
+        lastUpdated: Jan 02, 2006 15:04 MST  # 最后更新日期格式
+
+    # 侧边栏设置
+    sidebar:
+        subtitle: Lorem ipsum dolor sit amet, consectetur adipiscing elit.  # 副标题
+        avatar:
+            enabled: true              # 是否显示头像
+            local: true                # 是否使用本地图片
+            src: img/avatar.jpg       # 头像路径
+
+    # 文章设置
+    article:
+        math: true                    # 是否支持数学公式
+        toc: true                      # 是否显示目录
+        readingTime: true              # 是否显示阅读时间
+        license:
+            enabled: true              # 是否显示版权信息
+            default: Licensed under CC BY-NC-SA 4.0  # 默认许可证
+
+    # 评论系统配置
+    comments:
+        enabled: true                  # 启用评论
+        provider: disqus               # 评论提供商
+
+        # 各评论系统的具体配置
+        disqusjs: {...}                # DisqusJS配置
+        utterances: {...}              # Utterances配置（GitHub-based）
+        beaudar: {...}                 # Beaudar配置
+        remark42: {...}                # Remark42配置
+        vssue: {...}                   # Vssue配置
+        waline: {...}                  # Waline配置
+        twikoo: {...}                  # Twikoo配置
+        cactus: {...}                  # Cactus Chat配置
+        giscus: {...}                  # Giscus配置（GitHub Discussions）
+        gitalk: {...}                  # Gitalk配置
+        cusdis: {...}                  # Cusdis配置
+
+    # 小工具配置
+    widgets:
+        homepage:                      # 首页小工具
+            - type: search             # 搜索框
+            - type: archives           # 文章归档
+              params:
+                  limit: 5             # 显示数量
+            - type: categories         # 分类
+              params:
+                  limit: 10
+            - type: tag-cloud          # 标签云
+              params:
+                  limit: 10
+        page:
+            - type: toc                # 页面目录
+
+    # OpenGraph设置（社交媒体分享）
+    opengraph:
+        twitter:
+            site:                      # Twitter用户名
+            card: summary_large_image  # 卡片类型：summary或summary_large_image
+
+    # 默认图片设置
+    defaultImage:
+        opengraph:
+            enabled: false             # 是否启用
+            local: false               # 是否使用本地图片
+            src:                       # 图片路径
+
+    # 颜色方案
+    colorScheme:
+        toggle: true                   # 是否显示切换按钮
+        default: auto                  # 默认模式：auto, light, dark
+
+    # 图片处理
+    imageProcessing:
+        cover:
+            enabled: true              # 处理封面图片
+        content:
+            enabled: true              # 处理内容图片
+
+# 自定义菜单配置
+menu:
+    main: []                           # 主导航菜单
+
+    social:                            # 社交链接菜单
+        - identifier: github
+          name: GitHub
+          url: https://github.com/LeoninCS/my-blog
+          params:
+              icon: brand-github       # 图标名称
+# 相关文章设置
+related:
+    includeNewer: true                 # 是否包含较新文章
+    threshold: 60                      # 相关度阈值
+    toLower: false                     # 是否忽略大小写
+    indices:
+        - name: tags                   # 使用标签作为关联依据
+          weight: 100                  # 权重
+        - name: categories             # 使用分类作为关联依据
+          weight: 200
+
+# Markdown渲染设置
+markup:
+    goldmark:
+        extensions:
+            passthrough:
+                enable: true           # 启用原始HTML通过
+                delimiters:
+                    block:             # 块级分隔符
+                        - - \[
+                          - \]
+                        - - $$
+                          - $$
+                    inline:            # 行内分隔符
+                        - - \(
+                          - \)
+        renderer:
+            unsafe: true               # 允许不安全HTML（直接渲染HTML内容）
+    tableOfContents:
+        endLevel: 4                    # 目录结束级别
+        ordered: true                  # 是否有序
+        startLevel: 2                  # 目录开始级别
+    highlight:
+        noClasses: false               # 是否使用内联样式
+        codeFences: true               # 启用代码围栏
+        guessSyntax: true              # 自动猜测语法
+        lineNoStart: 1                 # 行号起始值
+        lineNos: true                  # 显示行号
+        lineNumbersInTable: true       # 在表格中显示行号
+        tabWidth: 4                    # 制表符宽度
