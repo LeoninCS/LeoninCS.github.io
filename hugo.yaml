@@ -141,7 +141,7 @@ menu:
     social:                            # 社交链接菜单
         - identifier: github
           name: GitHub
-          url: https://github.com/LeoninCS/my-blog
+          url: https://github.com/LeoninCS/LeoninCS.github.io
           params:
               icon: brand-github       # 图标名称
 # 相关文章设置
