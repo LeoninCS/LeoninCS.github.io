@@ -143,7 +143,19 @@ menu:
           name: GitHub
           url: https://github.com/LeoninCS/LeoninCS.github.io
           params:
-              icon: brand-github       # 图标名称
+              icon: github2       # 图标名称
+          weight: 1
+        - identifier: codeforces
+          name: Codeforces
+          url: https://codeforces.com/profile/LeoninCS
+          params:
+              icon: codeforces    # 图标名称
+        - identifier: leetcode
+          name: LeetCode
+          url: https://leetcode.cn/u/mvp-u/
+          params:
+              icon: leetcode    # 图标名称
+
 # 相关文章设置
 related:
     includeNewer: true                 # 是否包含较新文章
