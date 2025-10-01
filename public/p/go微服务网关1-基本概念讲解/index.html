@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本文介绍了什么是微服务架构及其优势，同时讲解了微服务网关的核心功能。">
+<title>Go微服务网关(1): 基本概念讲解</title>
+
+<link rel='canonical' href='http://localhost:1313/p/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B31-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AE%B2%E8%A7%A3/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Go微服务网关(1): 基本概念讲解">
+<meta property='og:description' content="本文介绍了什么是微服务架构及其优势，同时讲解了微服务网关的核心功能。">
+<meta property='og:url' content='http://localhost:1313/p/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B31-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AE%B2%E8%A7%A3/'>
+<meta property='og:site_name' content='Leon的小屋'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' />
+<meta name="twitter:title" content="Go微服务网关(1): 基本概念讲解">
+<meta name="twitter:description" content="本文介绍了什么是微服务架构及其优势，同时讲解了微服务网关的核心功能。">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_2a5b08f1d2f759af.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Leon的小屋</a></h1>
+            <h2 class="site-description">学习记录、技术分享、偶尔发些日常生活。</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/LeoninCS/LeoninCS.github.io'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M200,513c0-20.3,0-40.7,0-61c3.1,0.6,1.9,3.1,1.9,4.8c0.1,16.3,0.2,32.6,0,48.9c-0.1,4.1,1,5.4,5.2,5.4   c36.6-0.2,73.2-0.2,109.8,0c4.4,0,5.1-1.6,5.1-5.5c-0.2-25-0.1-49.9-0.1-74.9c0-9.3,0.2-18.6,0.2-27.9c2.8,1.2,1.6,3.8,1.6,5.7   c0.1,34.8,0.1,69.6,0.1,104.4C282.7,513,241.3,513,200,513z" fill="#D1D1D1"/><path d="M322.2,402.8c-0.1,9.3-0.2,18.6-0.2,27.9c0,25-0.1,49.9,0.1,74.9c0,3.9-0.7,5.5-5.1,5.5   c-36.6-0.2-73.2-0.2-109.8,0c-4.2,0-5.3-1.3-5.2-5.4c0.2-16.3,0.1-32.6,0-48.9c0-1.7,1.2-4.2-1.9-4.8c-9.7,0.9-19.3,3.2-29.2,2.8   c-33.5-1.3-59.5-15.4-74.7-45.8c-8.2-16.4-17.8-31.7-29.1-46c-3.1-3.9-7.9-5.5-11.5-8.7c-1.1-1-2.4-1.8-3.3-3   c-2.3-3.3-1.2-5.8,2.8-6.2c18.5-1.9,33.8,4.2,46.2,18.1c6.3,7.1,10.2,15.8,16.3,23.1c12.3,14.7,28,22.7,47,24.9   c11.5,1.3,22.4-0.9,33.3-4.2c2.2-0.6,3.1-2,3.3-4.3c0.7-10.3,2.8-20.3,6.8-29.9c1.8-4.3,4.7-7.9,6.9-12.3   c-10.3-2.6-20.7-3.4-30.5-6.4c-27.1-8.2-50.9-21.6-68.2-44.7c-8.3-11-14.1-23.3-17.4-36.5c-1.8-7.2-3.9-14.4-3.8-22   c0.1-13.3-0.5-26.7,0.3-40c0.9-16.8,3.1-33.5,9.2-49.2c3.8-9.7,9.3-18.6,17.1-25.9c2.4-2.3,3.3-4.1,1.8-7.9   c-7.4-19.7-8.1-39.8-1.8-60c0.2-0.6,0.3-1.3,0.4-2c2.2-10.3,4.5-11.3,14.3-7.4c19.2,7.5,33.3,21,45.3,37.3c3.4,4.6,2.7,6.6,10,1.9   c9.7-6.2,21-8.1,32.2-9.3c20.1-2.1,40.3-1.5,60.4-1.1c14.3,0.3,28.5,2.2,42,7.2c3.1,1.1,6,2.8,8.7,4.8c2.1,1.6,3.6,1.6,5.6-1.1   c9.1-12.8,19.5-24.4,33-32.6c6.6-4,13.4-7.7,21.4-8.6c3.3-0.4,4.7,0.7,5.6,3.3c8.3,22.9,9.5,45.7-0.2,68.5   c-1.2,2.8-0.8,4.6,1.3,6.5c16,15,21.8,34.5,24.8,55.5c2.5,17.7,3.2,35.5,2.7,53.3c-0.8,31.2-11.4,58.4-34.4,80.1   c-13.5,12.7-29.7,21.1-47.1,27.5c-12.4,4.6-25.5,5.8-38.5,9c1.3,3.1,3.7,5.4,4.3,8.5c-0.3,1.3,0.4,2,1.6,2.3   c0.1,0.6,0.3,1.1,0.4,1.7c0.3,2.1,0.1,4.3,2.5,5.4c0.5,2.2,1,4.5,1.4,6.7c-0.1,1.7-0.7,3.5,1.6,4.3c0,0.6,0.1,1.2,0.1,1.9   c-1.5,2.3-0.1,4.1,1.1,6C322.1,398.9,322.2,400.9,322.2,402.8z" fill="#A7A7A7"/><path d="M322,397c-1.1-1.9-2.6-3.7-1.1-6C322.1,392.9,323,394.8,322,397z" fill="#D1D1D1"/><path d="M317.7,378.2c-2.4-1.1-2.2-3.3-2.5-5.4C317.4,374,317.7,376,317.7,378.2z" fill="#D1D1D1"/><path d="M320.8,389.1c-2.3-0.8-1.7-2.6-1.6-4.3C321.5,385.6,321,387.5,320.8,389.1z" fill="#D1D1D1"/><path d="M314.8,371.1c-1.2-0.3-1.9-1-1.6-2.3C314.5,369.1,315.1,369.8,314.8,371.1z" fill="#D1D1D1"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://codeforces.com/profile/LeoninCS'
+                        target="_blank"
+                        title="Codeforces"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14"><path d="M 3.25,4.75 C 3.664,4.75 4,5.086 4,5.5 l 0,5.25 C 4,11.164 3.664,11.5 3.25,11.5 l -1.5,0 C 1.3365,11.5 1,11.164 1,10.75 L 1,5.5 C 1,5.086 1.3365,4.75 1.75,4.75 l 1.5,0 z M 7.75,2.5 c 0.414,0 0.75,0.336 0.75,0.75 l 0,7.5 c 0,0.414 -0.336,0.75 -0.75,0.75 l -1.5,0 C 5.8365,11.5 5.5,11.164 5.5,10.75 l 0,-7.5 C 5.5,2.836 5.8365,2.5 6.25,2.5 l 1.5,0 z m 4.5,3.75 C 12.664,6.25 13,6.586 13,7 l 0,3.75 c 0,0.414 -0.336,0.75 -0.75,0.75 l -1.5,0 C 10.336,11.5 10,11.164 10,10.75 L 10,7 c 0,-0.414 0.336,-0.75 0.75,-0.75 l 1.5,0 z"/></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://leetcode.cn/u/mvp-u/'
+                        target="_blank"
+                        title="LeetCode"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <path d="M21.469 23.907l-3.595 3.473c-0.624 0.625-1.484 0.885-2.432 0.885s-1.807-0.26-2.432-0.885l-5.776-5.812c-0.62-0.625-0.937-1.537-0.937-2.485 0-0.952 0.317-1.812 0.937-2.432l5.76-5.844c0.62-0.619 1.5-0.859 2.448-0.859s1.808 0.26 2.432 0.885l3.595 3.473c0.687 0.688 1.823 0.663 2.536-0.052 0.708-0.713 0.735-1.848 0.047-2.536l-3.473-3.511c-0.901-0.891-2.032-1.505-3.261-1.787l3.287-3.333c0.688-0.687 0.667-1.823-0.047-2.536s-1.849-0.735-2.536-0.052l-13.469 13.469c-1.307 1.312-1.989 3.113-1.989 5.113 0 1.996 0.683 3.86 1.989 5.168l5.797 5.812c1.307 1.307 3.115 1.937 5.115 1.937 1.995 0 3.801-0.683 5.109-1.989l3.479-3.521c0.688-0.683 0.661-1.817-0.052-2.531s-1.849-0.74-2.531-0.052zM27.749 17.349h-13.531c-0.932 0-1.692 0.801-1.692 1.791 0 0.991 0.76 1.797 1.692 1.797h13.531c0.933 0 1.693-0.807 1.693-1.797 0-0.989-0.76-1.791-1.693-1.791z"/>
+</svg>
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>档案</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#什么是微服务它有什么优势">什么是微服务？它有什么优势？</a>
+      <ol>
+        <li><a href="#微服务架构介绍">微服务架构介绍</a></li>
+        <li><a href="#微服务的优势">微服务的优势</a></li>
+      </ol>
+    </li>
+    <li><a href="#什么是微服务网关为什么要有微服务网关">什么是微服务网关？为什么要有微服务网关？</a>
+      <ol>
+        <li><a href="#微服务网关介绍">微服务网关介绍</a></li>
+        <li><a href="#微服务网关必要性">微服务网关必要性</a></li>
+      </ol>
+    </li>
+    <li><a href="#微服务网关的核心功能">微服务网关的核心功能</a>
+      <ol>
+        <li><a href="#1统一入口api聚合">1.统一入口（API聚合）</a></li>
+        <li><a href="#2路由转发">2.路由转发</a></li>
+        <li><a href="#3-安全认证">3. 安全认证</a></li>
+        <li><a href="#4-流量控制">4. 流量控制</a></li>
+        <li><a href="#5-协议转换">5. 协议转换</a></li>
+        <li><a href="#6-日志监控">6. 日志监控</a></li>
+      </ol>
+    </li>
+    <li><a href="#微服务架构未来发展">微服务架构未来发展</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B31-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AE%B2%E8%A7%A3/">Go微服务网关(1): 基本概念讲解</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            本文介绍了什么是微服务架构及其优势，同时讲解了微服务网关的核心功能。
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 5 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="go微服务网关开发1">Go微服务网关开发（1）
+</h1><blockquote>
+<p>本章内容主要介绍了微服务网关是什么，以及微服务网关的核心功能。</p></blockquote>
+<h2 id="什么是微服务它有什么优势">什么是微服务？它有什么优势？
+</h2><h3 id="微服务架构介绍">微服务架构介绍
+</h3><blockquote>
+<p>官方表述：<strong>&ldquo;微服务是一种架构风格，将复杂应用程序分解为一组小的、松耦合的服务，每个服务专注于单一业务功能，围绕业务能力构建，可独立部署扩展。&rdquo;</strong></p></blockquote>
+<p>通俗易懂解释：小诊所是一个整体，属于单体架构，而大型医院则将不同功能的服务分到不同科室，属于微服务架构。</p>
+<p><strong>单体架构图</strong></p>
+<p><img src="/p/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3%E5%BC%80%E5%8F%911%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D/8634272206cf40b9a4ed21dcdffe84df.png"
+	width="2711"
+	height="2137"
+	srcset="/p/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3%E5%BC%80%E5%8F%911%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D/8634272206cf40b9a4ed21dcdffe84df_hu_127ea2cb1ff24c6c.png 480w, /p/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3%E5%BC%80%E5%8F%911%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D/8634272206cf40b9a4ed21dcdffe84df_hu_d85cb9da28a49398.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="126"
+		data-flex-basis="304px"
+	
+></p>
+<p><strong>微服务架构图</strong></p>
+<p><img src="/p/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3%E5%BC%80%E5%8F%911%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D/6329b3d4701b4c26a3347de2616afcec.png"
+	width="2230"
+	height="1198"
+	srcset="/p/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3%E5%BC%80%E5%8F%911%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D/6329b3d4701b4c26a3347de2616afcec_hu_e140d2345c4caf25.png 480w, /p/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3%E5%BC%80%E5%8F%911%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D/6329b3d4701b4c26a3347de2616afcec_hu_36c883d6cc6f8274.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="186"
+		data-flex-basis="446px"
+	
+></p>
+<h3 id="微服务的优势">微服务的优势
+</h3><blockquote>
+<p>官方表述：微服务适合<strong>高并发、复杂业务、多团队协作</strong>的场景，通过解耦带来极致的灵活性和扩展性，但需配套完善的DevOps体系支撑其运维复杂度。</p></blockquote>
+<p>通俗易懂解释：小诊所医生请假诊所关门便暂停服务，而医院的一个医生请假医院依旧正常运转，且小诊所医生需要掌握各种常发病的治疗方法，而医院的各个医生只需要负责对于的病症，效率更高，服务更好。</p>
+<h2 id="什么是微服务网关为什么要有微服务网关">什么是微服务网关？为什么要有微服务网关？
+</h2><h3 id="微服务网关介绍">微服务网关介绍
+</h3><blockquote>
+<p>官方表述：<strong>微服务网关（Microservice Gateway）</strong> 是部署在微服务架构边缘的<strong>服务入口层</strong>，负责接收所有外部请求，并将其智能路由到后端对应的微服务实例。它作为服务边界的统一管控点，提供路由转发、负载均衡、安全认证、流量控制、协议转换等核心能力，是微服务架构中不可或缺的<strong>流量协调中心</strong>。</p></blockquote>
+<p>通俗易懂的解释：把一个大型项目想象成一个一所医院，医院有许多科室，每个科室都有不同的功能（<strong>微服务</strong>），而网关就是医院的前台，若没了前台，你便很难快速地找到相应的科室，且你每到一个科室都要登记，还有很大可能该科室已经有挂满号，让你空跑一趟，效率极低，而前台（网关）的出现便帮我们解决了这些痛点，护士会根据你的症状为你指引正确的科室（<strong>路由转发</strong> ），在前台登记后你便不用再重复登记（<strong>安全认证</strong>），在挂号时尽可能将病人分配到同一功能的不同科室以防止某个科室人数过多（<strong>负载均衡</strong>），若所有科室号都已挂满便会不再挂该科室的号（<strong>流量控制</strong>），同时前台可以监控各科室的情况（<strong>日志/监控</strong>），同时前台也在负责协调各个科室之间的通信（<strong>协议转换</strong>）。</p>
+<h3 id="微服务网关必要性">微服务网关必要性
+</h3><p>必要性：若无微服务网关，则整个微服务项目因耦合度过低，各个模块相互独立，客户端请求一个服务需要访问多个模块，且各个模块功能交互较为混乱，微服务的优势变成了劣势。</p>
+<h2 id="微服务网关的核心功能">微服务网关的核心功能
+</h2><blockquote>
+<p>这里我们先提供一个架构图</p></blockquote>
+<p><img src="/p/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3%E5%BC%80%E5%8F%911%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D/740aa009a88d4cbc86815eb0d5888988.png"
+	width="3648"
+	height="1056"
+	srcset="/p/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3%E5%BC%80%E5%8F%911%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D/740aa009a88d4cbc86815eb0d5888988_hu_58ca1516cf4fbaff.png 480w, /p/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3%E5%BC%80%E5%8F%911%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D/740aa009a88d4cbc86815eb0d5888988_hu_e65a7b34ea1c57b4.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="345"
+		data-flex-basis="829px"
+	
+></p>
+<h3 id="1统一入口api聚合">1.统一入口（API聚合）
+</h3><ul>
+<li><strong>作用</strong>：所有客户端请求通过网关统一访问，避免直接暴露微服务细节。</li>
+<li><strong>场景</strong>：客户端（如前端/移动端）只需与网关交互，无需知道内部服务地址（如 <code>/api/users</code> → 路由到用户服务）。</li>
+<li><strong>实现</strong>：通过路由规则将请求分发到对应微服务。</li>
+</ul>
+<p><strong>通俗易懂理解：去医院挂号不用去各个科室挂号，前台挂号即可。</strong></p>
+<h3 id="2路由转发">2.路由转发
+</h3><ul>
+<li><strong>作用</strong>：根据请求规则将流量精准分发到后端微服务。</li>
+<li><strong>核心能力</strong>：
+<ul>
+<li><strong>路径匹配</strong>：如 <code>/orders/*</code> → 订单服务。</li>
+<li><strong>权重路由</strong>：按比例分配流量（如80%新版本，20%旧版本）。</li>
+<li><strong>动态路由</strong>：基于服务注册中心动态更新路由表。</li>
+</ul>
+</li>
+</ul>
+<p><strong>通俗易懂理解：去医院看病，前台会指引你去正确的科室。</strong></p>
+<h3 id="3-安全认证">3. 安全认证
+</h3><ul>
+<li><strong>认证（Authentication）</strong>：验证请求合法性（如 JWT、OAuth2.0、API Key）。</li>
+<li><strong>授权（Authorization）</strong>：检查用户权限（如 VIP用户才能访问特定接口）。</li>
+<li><strong>限流（Rate Limiting）</strong>：防止恶意请求或流量激增（如每秒100次/用户）。</li>
+<li><strong>HTTPS/TLS终止</strong>：解密请求流量，减轻微服务安全负担。</li>
+</ul>
+<p><strong>通俗易懂理解：看病无需去各个科室登记身份，前台登记即可</strong></p>
+<h3 id="4-流量控制">4. 流量控制
+</h3><ul>
+<li><strong>负载均衡</strong>：在多个服务实例间均匀分配请求（轮询/最少活跃/哈希）。</li>
+<li><strong>熔断（Circuit Breaker）</strong>：服务故障时快速失败，避免级联崩溃（如 Hystrix/Sentinel）。</li>
+<li><strong>超时控制</strong>：设置请求超时，防止资源阻塞。</li>
+<li><strong>重试机制</strong>：对瞬态错误自动重试（如 502/503 错误）。</li>
+</ul>
+<p><strong>通俗易懂理解：若科室号已挂满，前台便停止该科室挂号服务直至该科室有空闲。</strong></p>
+<h3 id="5-协议转换">5. 协议转换
+</h3><ul>
+<li><strong>适配不同协议</strong>：将 HTTP/HTTPS 转为 WebSocket/gRPC 或其他协议。</li>
+<li><strong>请求/响应处理</strong>：
+<ul>
+<li>映射请求路径（如 <code>/api/v1/</code> → 简化为 <code>/</code>）。</li>
+<li>数据格式转换（如 XML → JSON）。</li>
+<li>请求头修改（如添加 tracing ID）。</li>
+</ul>
+</li>
+</ul>
+<p><strong>通俗易懂理解：不同科室之间通过前台通信，前台负责将A科室的请求转换后发送到B科室。</strong></p>
+<h3 id="6-日志监控">6. 日志监控
+</h3><ul>
+<li><strong>日志记录</strong>：统一记录请求/响应日志（含时间、路径、状态码）。</li>
+<li><strong>监控指标</strong>：收集延迟、QPS、错误率等数据（ Prometheus 格式）。</li>
+<li><strong>链路追踪</strong>：注入 trace ID（如 Zipkin/Jaeger）。</li>
+</ul>
+<p><strong>通俗易懂理解：前台可以监视各个科室发生的事件并记录。</strong></p>
+<h2 id="微服务架构未来发展">微服务架构未来发展
+</h2><blockquote>
+<p>目前市面上各个大厂（如阿里、字节、腾讯等）都在使用微服务架构，即使是一些老项目也在用微服务重构。</p></blockquote>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>企业</th>
+          <th>核心场景</th>
+          <th>微服务价值体现</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>阿里云</strong></td>
+          <td>双11大促（百万级TPS）</td>
+          <td>弹性扩容（秒级扩容1000+服务器）、故障隔离（订单宕机不影响商品浏览）</td>
+      </tr>
+      <tr>
+          <td><strong>字节跳动</strong></td>
+          <td>全球化短视频（抖音/TikTok）</td>
+          <td>跨地域部署（不同区域独立服务实例）、多语言能力（Go/Java/Rust按需求选择）</td>
+      </tr>
+      <tr>
+          <td><strong>腾讯</strong></td>
+          <td>微信生态（10亿用户+）</td>
+          <td>服务自治（支付/消息/登录独立容灾）、灰度发布（A/B测试新功能）</td>
+      </tr>
+      <tr>
+          <td><strong>美团</strong></td>
+          <td>O2O全链路（交易到配送）</td>
+          <td>复杂业务解耦（骑手调度/优惠券/商户服务独立迭代）</td>
+      </tr>
+  </tbody>
+</table></div>
+<blockquote>
+<p>同时各个大厂也自研了微服务网关</p></blockquote>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>企业</th>
+          <th>网关方案</th>
+          <th>技术栈</th>
+          <th>应用场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>阿里云</strong></td>
+          <td>MSE微服务引擎</td>
+          <td>自研+Envoy+Dubbo</td>
+          <td>企业级多云混合云</td>
+      </tr>
+      <tr>
+          <td><strong>字节跳动</strong></td>
+          <td>自研高性能网关</td>
+          <td>Go+Rust+DPDK</td>
+          <td>全球化高并发</td>
+      </tr>
+      <tr>
+          <td><strong>腾讯</strong></td>
+          <td>API网关（TSF集成）</td>
+          <td>Spring Cloud+Envoy</td>
+          <td>金融级高可用</td>
+      </tr>
+      <tr>
+          <td><strong>百度</strong></td>
+          <td>智能网关Baidu Cloud Mesh（BCM）</td>
+          <td>Istio+Kubernetes</td>
+          <td>AI+大数据服务网关</td>
+      </tr>
+  </tbody>
+</table></div>
+<blockquote>
+<p>微服务网关与云结合</p></blockquote>
+<p><img src="/p/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3%E5%BC%80%E5%8F%911%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D/d55a46372a454d26b290d1d44bc985cf.png"
+	width="3352"
+	height="666"
+	srcset="/p/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3%E5%BC%80%E5%8F%911%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D/d55a46372a454d26b290d1d44bc985cf_hu_478095a0d0c767e.png 480w, /p/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3%E5%BC%80%E5%8F%911%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D/d55a46372a454d26b290d1d44bc985cf_hu_24f650e35a0f6942.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="503"
+		data-flex-basis="1207px"
+	
+></p>
+<p><strong>未来已来</strong>：当网关能力完全云服务化后，企业将不再关心“网关在哪里”，只需定义“我要什么功能”——这正是云计算终极目标的体现。建议企业优先采用云厂商全托管网关服务，将精力聚焦在业务创新而非基础设施运维。</p>
+<p><strong>综上可见，未来微服务将是软件行业发展趋势，微服务网关与云的结合将会产生新一轮的变革。</strong></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 LeoninCS
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.73835f80eecd2596933b144ee3da5f636e1442446b08d1582bb318999dcf5313.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

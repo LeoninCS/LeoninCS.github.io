@@ -7,7 +7,31 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoninCS</copyright>
-        <lastBuildDate>Tue, 30 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 01 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>API网关</title>
+        <link>http://localhost:1313/categories/api%E7%BD%91%E5%85%B3/</link>
+        <pubDate>Wed, 01 Oct 2025 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/categories/api%E7%BD%91%E5%85%B3/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Golang</title>
+        <link>http://localhost:1313/categories/golang/</link>
+        <pubDate>Wed, 01 Oct 2025 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/categories/golang/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>微服务</title>
+        <link>http://localhost:1313/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</link>
+        <pubDate>Wed, 01 Oct 2025 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>GitHub Pages</title>
         <link>http://localhost:1313/categories/github-pages/</link>
         <pubDate>Tue, 30 Sep 2025 00:00:00 +0000</pubDate>
