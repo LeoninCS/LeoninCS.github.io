@@ -5,7 +5,7 @@ title: "Hugo + GitHub快速搭建个人博客"
 
 date: "2025-09-30"
 
-description: "十分钟叫你利用Hugo + GitHub快速搭建个人博客。"
+description: "十分钟教你利用Hugo + GitHub快速搭建个人博客。"
 
 categories:
 - "博客搭建"
