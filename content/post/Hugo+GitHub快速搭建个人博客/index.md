@@ -21,7 +21,7 @@ image: "face.jpg"
 
 # Hugo + GitHub快速搭建个人博客
 
-**[视频教程]()**
+**[视频教程](https://b23.tv/zImTKF4)**
 
 ## 引言
 
@@ -43,7 +43,7 @@ image: "face.jpg"
 
 * 安装Git  [Git安装](https://git-scm.cn/book/en/v2/Getting-Started-Installing-Git)
 
-* 注册一个GitHub账号  [GitHub注册]([Sign up for GitHub · GitHub](https://github.com/signup?return_to=%2F&source=login))
+* 注册一个GitHub账号  [GitHub注册](https://github.com/signup?return_to=%2F&source=login)
 
 **本文章仅提供在windows上安装教程**
 
