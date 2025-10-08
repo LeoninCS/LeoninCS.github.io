@@ -489,14 +489,14 @@ git push
    ```powershell
    #两种方式
    #第一种：命令创建
-   hugo new content posts/我的新文章.md
+   hugo new content post/文章名/index.md
    #第二种：手动添加
-   将写好的markdown文档添加到content/posts里面
+   将写好的markdown文档添加到content/post里面
    ```
 
 2. **写作与预览**：
    
-   * 用 VS Code 编辑刚生成的 `content/posts/我的新文章.md` 文件。
+   * 用 VS Code 编辑刚生成的 `content/post/我的新文章.md` 文件。
    * 在终端运行 `hugo server`，然后在浏览器打开 `http://localhost:1313` 实时预览。
 
 3. **发布上线**：
@@ -504,7 +504,8 @@ git push
    * 写完并预览满意后，只需执行：
    
    ```powershell
-   git add .git commit -m "Publish: 我的新文章"
+   git add .
+   git commit -m "Publish: 我的新文章"
    git push
    ```
    
@@ -519,5 +520,3 @@ git push
 - 图片要和相应的文档放在同一文件夹，采用! [Alt] (文件地址)调用 
 - 文件地址要采用相对路径
 - 若采取相同主题则可一步一步按照上述流程进行操作，若采取不同主题该文档仅供参考
-
-
