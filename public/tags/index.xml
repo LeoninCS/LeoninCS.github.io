@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>LeoninCS</copyright>
-        <lastBuildDate>Wed, 01 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 10 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>API网关</title>
         <link>http://localhost:1313/tags/api%E7%BD%91%E5%85%B3/</link>
-        <pubDate>Wed, 01 Oct 2025 00:00:00 +0000</pubDate>
+        <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
         
         <guid>http://localhost:1313/tags/api%E7%BD%91%E5%85%B3/</guid>
         <description></description>
@@ -18,15 +18,23 @@
         <item>
         <title>Golang</title>
         <link>http://localhost:1313/tags/golang/</link>
-        <pubDate>Wed, 01 Oct 2025 00:00:00 +0000</pubDate>
+        <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
         
         <guid>http://localhost:1313/tags/golang/</guid>
         <description></description>
         </item>
         <item>
+        <title>路由转发</title>
+        <link>http://localhost:1313/tags/%E8%B7%AF%E7%94%B1%E8%BD%AC%E5%8F%91/</link>
+        <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/tags/%E8%B7%AF%E7%94%B1%E8%BD%AC%E5%8F%91/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>微服务</title>
         <link>http://localhost:1313/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</link>
-        <pubDate>Wed, 01 Oct 2025 00:00:00 +0000</pubDate>
+        <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
         
         <guid>http://localhost:1313/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</guid>
         <description></description>
