@@ -778,6 +778,11 @@
         <description>&lt;img src="http://localhost:1313/p/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B32%E8%B7%AF%E7%94%B1%E8%BD%AC%E5%8F%91%E5%8A%9F%E8%83%BD%E7%9A%84%E5%AE%9E%E7%8E%B0/face.png" alt="Featured image of post Go微服务网关（2）：路由转发功能的实现" /&gt;&lt;h1 id=&#34;go微服务网关开发2路由转发功能的实现&#34;&gt;Go微服务网关开发（2）：路由转发功能的实现
 &lt;/h1&gt;&lt;blockquote&gt;
 &lt;p&gt;本章实现了API网关的路由转发功能&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/LeoninCS/Go-gateway&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;完整项目地址&lt;/a&gt;(已开发80%的功能)&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/LeoninCS/30daysGateway&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;30天开发地址&lt;/a&gt;(将项目分为30天开发，附详细技术文档与代码解析)\&lt;/p&gt;
+&lt;p&gt;欢迎star✨&lt;/p&gt;
 &lt;h2 id=&#34;什么是路由转发功能&#34;&gt;什么是路由转发功能
 &lt;/h2&gt;&lt;p&gt;&lt;strong&gt;路由转发功能&lt;/strong&gt;是指API网关将客户端请求转发到后端服务的功能。  &lt;/p&gt;
 &lt;p&gt;直观理解就是访问API网关端口（8080），会将请求转发到后端服务端口（8081、8082）等。  &lt;/p&gt;
@@ -1877,6 +1882,11 @@
         <description>&lt;img src="http://localhost:1313/p/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B31-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D/face.png" alt="Featured image of post Go微服务网关(1): 基本概念介绍" /&gt;&lt;h1 id=&#34;go微服务网关开发1&#34;&gt;Go微服务网关开发（1）
 &lt;/h1&gt;&lt;blockquote&gt;
 &lt;p&gt;本章内容主要介绍了微服务网关是什么，以及微服务网关的核心功能。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/LeoninCS/Go-gateway&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;完整项目地址&lt;/a&gt;(已开发80%的功能)&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/LeoninCS/30daysGateway&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;30天开发地址&lt;/a&gt;(将项目分为30天开发，附详细技术文档与代码解析)\&lt;/p&gt;
+&lt;p&gt;欢迎star✨&lt;/p&gt;
 &lt;h2 id=&#34;什么是微服务它有什么优势&#34;&gt;什么是微服务？它有什么优势？
 &lt;/h2&gt;&lt;h3 id=&#34;微服务架构介绍&#34;&gt;微服务架构介绍
 &lt;/h3&gt;&lt;blockquote&gt;

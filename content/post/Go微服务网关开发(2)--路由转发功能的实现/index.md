@@ -22,15 +22,27 @@ image : "face.png"
 
 > 本章实现了API网关的路由转发功能
 
+
+
+[完整项目地址](https://github.com/LeoninCS/Go-gateway)(已开发80%的功能)
+
+
+
+[30天开发地址](https://github.com/LeoninCS/30daysGateway)(将项目分为30天开发，附详细技术文档与代码解析)
+
+欢迎star✨
+
+
+
 ## 什么是路由转发功能
 
-**路由转发功能**是指API网关将客户端请求转发到后端服务的功能。  
+**路由转发功能**是指API网关将客户端请求转发到后端服务的功能。  
 
-直观理解就是访问API网关端口（8080），会将请求转发到后端服务端口（8081、8082）等。  
+直观理解就是访问API网关端口（8080），会将请求转发到后端服务端口（8081、8082）等。  
 
 
 
-> 路由转发功能示例图  
+> 路由转发功能示例图  
 
 
 
@@ -40,7 +52,7 @@ image : "face.png"
 
 ## 实现第一步：搭好文件结构
 
-**首先，我们需要知道网关分为以下模块**  
+**首先，我们需要知道网关分为以下模块**  
 
 - 配置文件
 
@@ -48,63 +60,63 @@ image : "face.png"
 
 - 网关核心模块
 
-  - 反向代理模块
+  - 反向代理模块
 
-  - 路由模块
+  - 路由模块
 
 - 服务器模块
-  
-  
 
-**其次，我们需要了解Go的常见架构**  
 
-<br>
 
-├── cmd  
-
-├── internal    
-
-└── pkg  
+**其次，我们需要了解Go的常见架构**  
 
 <br>
 
-**cmd**：负责网关的入口  
+├── cmd  
 
-**internal**：负责网关的内部模块，不暴露给外部使用  
+├── internal    
 
-**pkg**：负责暴露给外部使用的模块  
+└── pkg  
+
+<br>
+
+**cmd**：负责网关的入口  
+
+**internal**：负责网关的内部模块，不暴露给外部使用  
+
+**pkg**：负责暴露给外部使用的模块  
 
 
 
-**最后，我们结合上面的模块与Go的常见架构，搭好文件结构**  
+**最后，我们结合上面的模块与Go的常见架构，搭好文件结构**  
 
-├── cmd  
+├── cmd  
 
-│   　└── main.go   //网关的入口    
+│   　└── main.go   //网关的入口    
 
-├── configs  
+├── configs  
 
-│   　└── config.yaml   //网关的配置文件      
+│   　└── config.yaml   //网关的配置文件      
 
-├── internal  
+├── internal  
 
-│   　├── config  
+│   　├── config  
 
-│   　│   　└── config.go //解析配置文件模块  
+│   　│   　└── config.go //解析配置文件模块  
 
-│   　└── core  //核心模块  
+│   　└── core  //核心模块  
 
-│      　　　├── gateway.go //网关核心模块    
+│      　　　├── gateway.go //网关核心模块    
 
-│      　　　├── proxy.go  //反向代理模块  
+│      　　　├── proxy.go  //反向代理模块  
 
-│      　　　├── route.go  //路由模块  
+│      　　　├── route.go  //路由模块  
 
-│      　　　└── server.go //服务器模块    
+│      　　　└── server.go //服务器模块    
 
-├── go.mod  
+├── go.mod  
 
-├── go.sum    
+├── go.sum    
 
 └── 文档
 
@@ -122,7 +134,7 @@ image : "face.png"
 
 5. **运行服务**
 
-6. **优雅关闭服务器**  
+6. **优雅关闭服务器**  
 
 > 流程图
 
@@ -144,7 +156,7 @@ image : "face.png"
 
 server:
 
-  port: 8080 # 网关客户端的端口
+  port: 8080 # 网关客户端的端口
 
 
 
@@ -152,23 +164,23 @@ server:
 
 routes:
 
-  # 路由service-a
+  # 路由service-a
 
-  - id: service-a # 路由service-a的ID
+  - id: service-a # 路由service-a的ID
 
-    path: /service-a # 路由service-a的路径
+    path: /service-a # 路由service-a的路径
 
-    target: http://localhost:8081 # 路由service-a的目标服务端口
+    target: http://localhost:8081 # 路由service-a的目标服务端口
 
 
 
-  # 路由service-b
+  # 路由service-b
 
-  - id: service-b
+  - id: service-b
 
-    path: /service-b
+    path: /service-b
 
-    target: http://localhost:8082
+    target: http://localhost:8082
 
 
 
