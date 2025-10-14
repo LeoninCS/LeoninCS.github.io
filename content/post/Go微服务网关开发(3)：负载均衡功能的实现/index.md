@@ -28,7 +28,7 @@ image : "face.png"
 
 
 
-[30天开发地址](https://github.com/LeoninCS/30daysGateway)(将项目分为30天开发，附详细技术文档与代码解析)\
+[30天开发地址](https://github.com/LeoninCS/30daysGateway)(将项目分为30天开发，附详细技术文档与代码解析)
 
 欢迎star✨
 
