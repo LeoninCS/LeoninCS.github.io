@@ -368,13 +368,13 @@
 <p><a class="link" href="https://github.com/LeoninCS/Go-gateway"  target="_blank" rel="noopener"
     >完整项目地址</a>(已开发80%的功能)</p>
 <p><a class="link" href="https://github.com/LeoninCS/30daysGateway"  target="_blank" rel="noopener"
-    >30天开发地址</a>(将项目分为30天开发，附详细技术文档与代码解析)\</p>
+    >30天开发地址</a>(将项目分为30天开发，附详细技术文档与代码解析)</p>
 <p>欢迎star✨</p>
 <h2 id="什么是路由转发功能">什么是路由转发功能
-</h2><p><strong>路由转发功能</strong>是指API网关将客户端请求转发到后端服务的功能。  </p>
-<p>直观理解就是访问API网关端口（8080），会将请求转发到后端服务端口（8081、8082）等。  </p>
+</h2><p><strong>路由转发功能</strong>是指API网关将客户端请求转发到后端服务的功能。</p>
+<p>直观理解就是访问API网关端口（8080），会将请求转发到后端服务端口（8081、8082）等。</p>
 <blockquote>
-<p>路由转发功能示例图  </p></blockquote>
+<p>路由转发功能示例图</p></blockquote>
 <p><img src="/p/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B32%E8%B7%AF%E7%94%B1%E8%BD%AC%E5%8F%91%E5%8A%9F%E8%83%BD%E7%9A%84%E5%AE%9E%E7%8E%B0/%E8%B7%AF%E7%94%B1%E8%BD%AC%E5%8F%91%E5%8A%9F%E8%83%BD%E7%A4%BA%E4%BE%8B.png"
 	width="1264"
 	height="771"
@@ -390,7 +390,7 @@
 	
 ></p>
 <h2 id="实现第一步搭好文件结构">实现第一步：搭好文件结构
-</h2><p><strong>首先，我们需要知道网关分为以下模块</strong>  </p>
+</h2><p><strong>首先，我们需要知道网关分为以下模块</strong></p>
 <ul>
 <li>
 <p>配置文件</p>
@@ -400,37 +400,43 @@
 </li>
 <li>
 <p>网关核心模块</p>
+<ul>
+<li>
+<p>反向代理模块</p>
+</li>
+<li>
+<p>路由模块</p>
 </li>
 </ul>
-<p>  - 反向代理模块</p>
-<p>  - 路由模块</p>
-<ul>
-<li>服务器模块</li>
+</li>
+<li>
+<p>服务器模块</p>
+</li>
 </ul>
-<p><strong>其次，我们需要了解Go的常见架构</strong>  </p>
+<p><strong>其次，我们需要了解Go的常见架构</strong></p>
 <br>
-<p>├── cmd  </p>
-<p>├── internal    </p>
-<p>└── pkg  </p>
+<p>├── cmd</p>
+<p>├── internal</p>
+<p>└── pkg</p>
 <br>
-<p><strong>cmd</strong>：负责网关的入口  </p>
-<p><strong>internal</strong>：负责网关的内部模块，不暴露给外部使用  </p>
-<p><strong>pkg</strong>：负责暴露给外部使用的模块  </p>
-<p><strong>最后，我们结合上面的模块与Go的常见架构，搭好文件结构</strong>  </p>
-<p>├── cmd  </p>
-<p>│   　└── main.go   //网关的入口    </p>
-<p>├── configs  </p>
-<p>│   　└── config.yaml   //网关的配置文件      </p>
-<p>├── internal  </p>
-<p>│   　├── config  </p>
-<p>│   　│   　└── config.go //解析配置文件模块  </p>
-<p>│   　└── core  //核心模块  </p>
-<p>│      　　　├── gateway.go //网关核心模块    </p>
-<p>│      　　　├── proxy.go  //反向代理模块  </p>
-<p>│      　　　├── route.go  //路由模块  </p>
-<p>│      　　　└── server.go //服务器模块    </p>
-<p>├── go.mod  </p>
-<p>├── go.sum    </p>
+<p><strong>cmd</strong>：负责网关的入口</p>
+<p><strong>internal</strong>：负责网关的内部模块，不暴露给外部使用</p>
+<p><strong>pkg</strong>：负责暴露给外部使用的模块</p>
+<p><strong>最后，我们结合上面的模块与Go的常见架构，搭好文件结构</strong></p>
+<p>├── cmd</p>
+<p>│   　└── main.go   //网关的入口</p>
+<p>├── configs</p>
+<p>│   　└── config.yaml   //网关的配置文件</p>
+<p>├── internal</p>
+<p>│   　├── config</p>
+<p>│   　│   　└── config.go //解析配置文件模块</p>
+<p>│   　└── core  //核心模块</p>
+<p>│      　　　├── gateway.go //网关核心模块</p>
+<p>│      　　　├── proxy.go  //反向代理模块</p>
+<p>│      　　　├── route.go  //路由模块</p>
+<p>│      　　　└── server.go //服务器模块</p>
+<p>├── go.mod</p>
+<p>├── go.sum</p>
 <p>└── 文档</p>
 <h2 id="实现第二步理解程序运行过程">实现第二步：理解程序运行过程
 </h2><ol>
@@ -450,7 +456,7 @@
 <p><strong>运行服务</strong></p>
 </li>
 <li>
-<p><strong>优雅关闭服务器</strong>  </p>
+<p><strong>优雅关闭服务器</strong></p>
 </li>
 </ol>
 <blockquote>
@@ -526,7 +532,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">server</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w"> </span><span class="c"># 网关客户端的端口</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w"> </span><span class="c"># 网关客户端的端口</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
@@ -534,23 +540,23 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">routes</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 路由service-a</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 路由service-a</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">service-a</span><span class="w"> </span><span class="c"># 路由service-a的ID</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">service-a</span><span class="w"> </span><span class="c"># 路由service-a的ID</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/service-a</span><span class="w"> </span><span class="c"># 路由service-a的路径</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/service-a</span><span class="w"> </span><span class="c"># 路由service-a的路径</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l">http://localhost:8081</span><span class="w"> </span><span class="c"># 路由service-a的目标服务端口</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l">http://localhost:8081</span><span class="w"> </span><span class="c"># 路由service-a的目标服务端口</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 路由service-b</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 路由service-b</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">service-b</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">service-b</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/service-b</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/service-b</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l">http://localhost:8082</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l">http://localhost:8082</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">

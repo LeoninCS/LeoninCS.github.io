@@ -347,7 +347,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 5 分钟
+                    阅读时长: 6 分钟
                 </time>
             </div>
         
@@ -368,7 +368,7 @@
 <p><a class="link" href="https://github.com/LeoninCS/Go-gateway"  target="_blank" rel="noopener"
     >完整项目地址</a>(已开发80%的功能)</p>
 <p><a class="link" href="https://github.com/LeoninCS/30daysGateway"  target="_blank" rel="noopener"
-    >30天开发地址</a>(将项目分为30天开发，附详细技术文档与代码解析)\</p>
+    >30天开发地址</a>(将项目分为30天开发，附详细技术文档与代码解析)</p>
 <p>欢迎star✨</p>
 <h2 id="什么是负载均衡功能">什么是负载均衡功能
 </h2><p><strong>负载均衡功能</strong>是指一个服务有多个实例，当有请求过来时，网关会根据负载均衡算法（如轮询）将请求分发到不同的实例上，以实现负载均衡和高可用性。</p>
@@ -388,6 +388,7 @@
 		data-flex-basis="434px"
 	
 ></p>
+<p><strong>与路由转发的区别：路由转发是将请求匹配到相应的服务，而负载均衡则是将请求分发到同一服务的不同实例上。（可避免一个服务实例过载或者故障导致整个服务不可用）</strong></p>
 <p><strong>与路由转发的区别：路由转发是将请求匹配到相应的服务，而负载均衡则是将请求分发到同一服务的不同实例上。（可避免一个服务实例过载或者故障导致整个服务不可用）</strong></p>
 <h2 id="实现第一步理解day2的架构变化">实现第一步：理解Day2的架构变化
 </h2><p><strong>Day2在Day1的基础上新增了以下模块</strong></p>
@@ -417,7 +418,8 @@
 </li>
 </ul>
 <h2 id="实现第二步实现负载均衡功能">实现第二步：实现负载均衡功能
-</h2><p>1.负载均衡器主要功能就是选择一个后端服务实例来处理请求，因此首先定义后端服务管理模块（backend.go），用于存储和管理后端服务实例。</p>
+</h2><hr>
+<p>1.负载均衡器主要功能就是选择一个后端服务实例来处理请求，因此首先定义后端服务管理模块（backend.go），用于存储和管理后端服务实例。</p>
 <blockquote>
 <p>定义结构体，包括后端服务实例的ID、URL、状态（是否存活）和互斥锁（用于处理并发）。</p></blockquote>
 <div class="highlight"><div class="chroma">
@@ -502,7 +504,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>2.定义负载均衡器接口（loadbalancer.go），包括添加后端服务实例、删除后端服务实例、选择后端服务实例等方法。</p>
+</div><hr>
+<p>2.定义负载均衡器接口（loadbalancer.go），包括添加后端服务实例、删除后端服务实例、选择后端服务实例等方法。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -533,7 +536,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>3.开始实现轮询负载均衡算法（round_robin.go），即按顺序选择下一个活着的后端服务实例。</p>
+</div><hr>
+<p>3.开始实现轮询负载均衡算法（round_robin.go），即按顺序选择下一个活着的后端服务实例。</p>
 <blockquote>
 <p>定义结构体，主要包括后端服务实例列表、当前选择的后端索引（打上标记便于选择下一个）和互斥锁（用于处理并发）。</p></blockquote>
 <div class="highlight"><div class="chroma">
@@ -563,16 +567,23 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>开始实现具体的方法</p>
-<blockquote>
-<p>实现构造函数，用于创建一个新的轮询负载均衡器实例。</p></blockquote>
-<blockquote>
-<p>实现获取下一个目标后端服务实例的方法，按顺序选择下一个活着的后端服务实例。</p></blockquote>
-<blockquote>
-<p>实现添加后端服务实例的方法，将新的后端服务实例添加到列表中。</p></blockquote>
-<blockquote>
-<p>实现删除后端服务实例的方法，将指定的后端服务实例从列表中移除。</p></blockquote>
-<blockquote>
-<p>实现获取所有后端服务实例的方法，返回当前所有后端服务实例的列表。</p></blockquote>
+<ul>
+<li>
+<p>实现构造函数，用于创建一个新的轮询负载均衡器实例。</p>
+</li>
+<li>
+<p>实现获取下一个目标后端服务实例的方法，按顺序选择下一个活着的后端服务实例。</p>
+</li>
+<li>
+<p>实现添加后端服务实例的方法，将新的后端服务实例添加到列表中。</p>
+</li>
+<li>
+<p>实现删除后端服务实例的方法，将指定的后端服务实例从列表中移除。</p>
+</li>
+<li>
+<p>实现获取所有后端服务实例的方法，返回当前所有后端服务实例的列表。</p>
+</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -755,7 +766,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="实现第三步修改其他部分使整个项目可以运行">实现第三步，修改其他部分使整个项目可以运行
+</div><hr>
+<h2 id="实现第三步修改其他部分使整个项目可以运行">实现第三步，修改其他部分使整个项目可以运行
 </h2><ol>
 <li>修改路由模块（route.go），添加负载均衡器字段，用于选择后端服务实例。</li>
 </ol>
@@ -864,7 +876,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l">http://localhost:8082</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><ol start="2">
+</div><hr>
+<ol start="2">
 <li>修改config.go,使其正确映射（修改Route结构体即可）</li>
 </ol>
 <div class="highlight"><div class="chroma">
@@ -893,7 +906,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>3.修改proxy.go,添加负载均衡器字段，用于选择后端服务实例。</p>
+</div><hr>
+<p>3.修改proxy.go,添加负载均衡器字段，用于选择后端服务实例。</p>
 <p>首先在结构体里面添加一个字段，用于存储每个服务的负载均衡器实例。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1036,6 +1050,7 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>此时应该已经可以正确运行，<strong>若有报错大家自行修改，应该只是些类似于传参的低级错误，因为文章不便讲解每个修改的部分，但已将重要的修改点都标注出来了，其中一些低级的错误大家可以自己修改，若实在有问题也可以参考完整项目（已完成测试）或者联系作者。</strong></p>
+<hr>
 <h2 id="最后一步-测试网关">最后一步 测试网关
 </h2><blockquote>
 <p>首先启动8081,8082,8083,8084端口的服务端，然后启动网关（8080），最后使用curl或postman测试网关是否正常工作。(注意：大家先勿过度测试，确保负载均衡功能可以正常运行即可，还有很多问题接下来会一一解决。)</p></blockquote>
