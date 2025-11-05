@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本文讲解了分布式系统、微服务架构与服务器集群概念，并论述了三者的区别和联系，帮助大家了解并深入理解三者。">
+<title>图文讲解：分布式系统、微服务架构与服务器集群的区别与联系</title>
+
+<link rel='canonical' href='http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="图文讲解：分布式系统、微服务架构与服务器集群的区别与联系">
+<meta property='og:description' content="本文讲解了分布式系统、微服务架构与服务器集群概念，并论述了三者的区别和联系，帮助大家了解并深入理解三者。">
+<meta property='og:url' content='http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/'>
+<meta property='og:site_name' content='Leon的小屋'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='分布式' /><meta property='article:tag' content='微服务' /><meta property='article:tag' content='集群' /><meta property='article:published_time' content='2025-11-05T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-05T00:00:00&#43;00:00'/><meta property='og:image' content='http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/face.png' />
+<meta name="twitter:title" content="图文讲解：分布式系统、微服务架构与服务器集群的区别与联系">
+<meta name="twitter:description" content="本文讲解了分布式系统、微服务架构与服务器集群概念，并论述了三者的区别和联系，帮助大家了解并深入理解三者。"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/face.png' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_2a5b08f1d2f759af.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Leon的小屋</a></h1>
+            <h2 class="site-description">学习记录、技术分享、偶尔发些日常生活。</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/LeoninCS/LeoninCS.github.io'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 512 512" id="Layer_1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M200,513c0-20.3,0-40.7,0-61c3.1,0.6,1.9,3.1,1.9,4.8c0.1,16.3,0.2,32.6,0,48.9c-0.1,4.1,1,5.4,5.2,5.4   c36.6-0.2,73.2-0.2,109.8,0c4.4,0,5.1-1.6,5.1-5.5c-0.2-25-0.1-49.9-0.1-74.9c0-9.3,0.2-18.6,0.2-27.9c2.8,1.2,1.6,3.8,1.6,5.7   c0.1,34.8,0.1,69.6,0.1,104.4C282.7,513,241.3,513,200,513z" fill="#D1D1D1"/><path d="M322.2,402.8c-0.1,9.3-0.2,18.6-0.2,27.9c0,25-0.1,49.9,0.1,74.9c0,3.9-0.7,5.5-5.1,5.5   c-36.6-0.2-73.2-0.2-109.8,0c-4.2,0-5.3-1.3-5.2-5.4c0.2-16.3,0.1-32.6,0-48.9c0-1.7,1.2-4.2-1.9-4.8c-9.7,0.9-19.3,3.2-29.2,2.8   c-33.5-1.3-59.5-15.4-74.7-45.8c-8.2-16.4-17.8-31.7-29.1-46c-3.1-3.9-7.9-5.5-11.5-8.7c-1.1-1-2.4-1.8-3.3-3   c-2.3-3.3-1.2-5.8,2.8-6.2c18.5-1.9,33.8,4.2,46.2,18.1c6.3,7.1,10.2,15.8,16.3,23.1c12.3,14.7,28,22.7,47,24.9   c11.5,1.3,22.4-0.9,33.3-4.2c2.2-0.6,3.1-2,3.3-4.3c0.7-10.3,2.8-20.3,6.8-29.9c1.8-4.3,4.7-7.9,6.9-12.3   c-10.3-2.6-20.7-3.4-30.5-6.4c-27.1-8.2-50.9-21.6-68.2-44.7c-8.3-11-14.1-23.3-17.4-36.5c-1.8-7.2-3.9-14.4-3.8-22   c0.1-13.3-0.5-26.7,0.3-40c0.9-16.8,3.1-33.5,9.2-49.2c3.8-9.7,9.3-18.6,17.1-25.9c2.4-2.3,3.3-4.1,1.8-7.9   c-7.4-19.7-8.1-39.8-1.8-60c0.2-0.6,0.3-1.3,0.4-2c2.2-10.3,4.5-11.3,14.3-7.4c19.2,7.5,33.3,21,45.3,37.3c3.4,4.6,2.7,6.6,10,1.9   c9.7-6.2,21-8.1,32.2-9.3c20.1-2.1,40.3-1.5,60.4-1.1c14.3,0.3,28.5,2.2,42,7.2c3.1,1.1,6,2.8,8.7,4.8c2.1,1.6,3.6,1.6,5.6-1.1   c9.1-12.8,19.5-24.4,33-32.6c6.6-4,13.4-7.7,21.4-8.6c3.3-0.4,4.7,0.7,5.6,3.3c8.3,22.9,9.5,45.7-0.2,68.5   c-1.2,2.8-0.8,4.6,1.3,6.5c16,15,21.8,34.5,24.8,55.5c2.5,17.7,3.2,35.5,2.7,53.3c-0.8,31.2-11.4,58.4-34.4,80.1   c-13.5,12.7-29.7,21.1-47.1,27.5c-12.4,4.6-25.5,5.8-38.5,9c1.3,3.1,3.7,5.4,4.3,8.5c-0.3,1.3,0.4,2,1.6,2.3   c0.1,0.6,0.3,1.1,0.4,1.7c0.3,2.1,0.1,4.3,2.5,5.4c0.5,2.2,1,4.5,1.4,6.7c-0.1,1.7-0.7,3.5,1.6,4.3c0,0.6,0.1,1.2,0.1,1.9   c-1.5,2.3-0.1,4.1,1.1,6C322.1,398.9,322.2,400.9,322.2,402.8z" fill="#A7A7A7"/><path d="M322,397c-1.1-1.9-2.6-3.7-1.1-6C322.1,392.9,323,394.8,322,397z" fill="#D1D1D1"/><path d="M317.7,378.2c-2.4-1.1-2.2-3.3-2.5-5.4C317.4,374,317.7,376,317.7,378.2z" fill="#D1D1D1"/><path d="M320.8,389.1c-2.3-0.8-1.7-2.6-1.6-4.3C321.5,385.6,321,387.5,320.8,389.1z" fill="#D1D1D1"/><path d="M314.8,371.1c-1.2-0.3-1.9-1-1.6-2.3C314.5,369.1,315.1,369.8,314.8,371.1z" fill="#D1D1D1"/></g></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://codeforces.com/profile/LeoninCS'
+                        target="_blank"
+                        title="Codeforces"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14"><path d="M 3.25,4.75 C 3.664,4.75 4,5.086 4,5.5 l 0,5.25 C 4,11.164 3.664,11.5 3.25,11.5 l -1.5,0 C 1.3365,11.5 1,11.164 1,10.75 L 1,5.5 C 1,5.086 1.3365,4.75 1.75,4.75 l 1.5,0 z M 7.75,2.5 c 0.414,0 0.75,0.336 0.75,0.75 l 0,7.5 c 0,0.414 -0.336,0.75 -0.75,0.75 l -1.5,0 C 5.8365,11.5 5.5,11.164 5.5,10.75 l 0,-7.5 C 5.5,2.836 5.8365,2.5 6.25,2.5 l 1.5,0 z m 4.5,3.75 C 12.664,6.25 13,6.586 13,7 l 0,3.75 c 0,0.414 -0.336,0.75 -0.75,0.75 l -1.5,0 C 10.336,11.5 10,11.164 10,10.75 L 10,7 c 0,-0.414 0.336,-0.75 0.75,-0.75 l 1.5,0 z"/></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://leetcode.cn/u/mvp-u/'
+                        target="_blank"
+                        title="LeetCode"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <path d="M21.469 23.907l-3.595 3.473c-0.624 0.625-1.484 0.885-2.432 0.885s-1.807-0.26-2.432-0.885l-5.776-5.812c-0.62-0.625-0.937-1.537-0.937-2.485 0-0.952 0.317-1.812 0.937-2.432l5.76-5.844c0.62-0.619 1.5-0.859 2.448-0.859s1.808 0.26 2.432 0.885l3.595 3.473c0.687 0.688 1.823 0.663 2.536-0.052 0.708-0.713 0.735-1.848 0.047-2.536l-3.473-3.511c-0.901-0.891-2.032-1.505-3.261-1.787l3.287-3.333c0.688-0.687 0.667-1.823-0.047-2.536s-1.849-0.735-2.536-0.052l-13.469 13.469c-1.307 1.312-1.989 3.113-1.989 5.113 0 1.996 0.683 3.86 1.989 5.168l5.797 5.812c1.307 1.307 3.115 1.937 5.115 1.937 1.995 0 3.801-0.683 5.109-1.989l3.479-3.521c0.688-0.683 0.661-1.817-0.052-2.531s-1.849-0.74-2.531-0.052zM27.749 17.349h-13.531c-0.932 0-1.692 0.801-1.692 1.791 0 0.991 0.76 1.797 1.692 1.797h13.531c0.933 0 1.693-0.807 1.693-1.797 0-0.989-0.76-1.791-1.693-1.791z"/>
+</svg>
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>档案</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#基础概念讲解">基础概念讲解</a>
+      <ol>
+        <li><a href="#什么是分布式系统">什么是分布式系统?</a></li>
+        <li><a href="#什么是微服务架构">什么是微服务架构？</a></li>
+        <li><a href="#什么是服务器集群">什么是服务器集群？</a></li>
+      </ol>
+    </li>
+    <li><a href="#三者的区别与联系">三者的区别与联系</a>
+      <ol>
+        <li><a href="#区别">区别</a></li>
+        <li><a href="#联系">联系</a></li>
+      </ol>
+    </li>
+    <li><a href="#两两之间论述">两两之间论述</a>
+      <ol>
+        <li><a href="#分布式和微服务的论述">分布式和微服务的论述</a></li>
+        <li><a href="#分布式和集群的论述">分布式和集群的论述</a></li>
+        <li><a href="#微服务和集群的论述">微服务和集群的论述</a></li>
+      </ol>
+    </li>
+    <li><a href="#一些加深理解的问题">一些加深理解的问题</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/">
+                <img src="/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/face_hu_e2d1be20bbab2f19.png"
+                        srcset="/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/face_hu_e2d1be20bbab2f19.png 800w, /p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/face_hu_98db8c2048ae02fa.png 1600w"
+                        width="800" 
+                        height="533" 
+                        loading="lazy"
+                        alt="Featured image of post 图文讲解：分布式系统、微服务架构与服务器集群的区别与联系" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" >
+                分布式
+            </a>
+        
+            <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" >
+                微服务
+            </a>
+        
+            <a href="/categories/%E9%9B%86%E7%BE%A4/" >
+                集群
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/">图文讲解：分布式系统、微服务架构与服务器集群的区别与联系</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            本文讲解了分布式系统、微服务架构与服务器集群概念，并论述了三者的区别和联系，帮助大家了解并深入理解三者。
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 05, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 6 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="图文讲解分布式系统微服务架构与服务器集群的区别与联系">图文讲解：分布式系统、微服务架构与服务器集群的区别与联系
+</h1><h2 id="前言">前言
+</h2><p>目前越来越多的公司都在用微服务架构，可以说微服务就是未来的主流，所以对其<strong>了解乃至深入理解</strong>是很有必要的，本文采用<strong>图文结合</strong>的方式系统地介绍了什么是<strong>分布式系统、微服务架构、服务器集群</strong>，方便初学者了解，同时也介绍了三者之间的区别与联系，并给出了作者的见解，方便进阶读者深入理解。</p>
+<p>由于作者水平有限，所以如本文有什么错误欢迎指出，读者若有什么不同的观点也欢迎评论区或者私信交流。</p>
+<h2 id="基础概念讲解">基础概念讲解
+</h2><h3 id="什么是分布式系统">什么是分布式系统?
+</h3><p><strong>分布式系统概念</strong></p>
+<blockquote>
+<p>由多台独立计算机通过网络协同工作、共同完成同一任务，对外表现为一个整体的系统。</p></blockquote>
+<p>由概念我们不难理解，分布式系统就是多台计算机合作完成同一项任务，通俗理解来讲就是*&ldquo;一个篱笆三个桩，一个好汉三个帮”*，一个计算机完成不了的任务通过多个计算机来完成。</p>
+<p><strong>分布式系统图</strong></p>
+<p><img src="/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/fenbushi.png"
+	width="848"
+	height="658"
+	srcset="/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/fenbushi_hu_5cfa7dc063aaf362.png 480w, /p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/fenbushi_hu_3ee3639212971eb6.png 1024w"
+	loading="lazy"
+	
+		alt="分布式架构图"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="128"
+		data-flex-basis="309px"
+	
+></p>
+<p><strong>分布式优势</strong></p>
+<p>相信从图中可以看出，现在6个计算机负责同一个任务，那么每个计算机所承受的压力变为了原来的六分之一,若性能还是不够的话还可以再加计算机，可见分布式系统的出现主要是为了<strong>在性能方面分散压力同时提高可拓展性</strong>。</p>
+<p><strong>需注意各个计算机负责的点不同，否则就变成了服务器集群。（你可以先跳过此段话看完后面再来理解）</strong></p>
+<p><strong>该图为类比到项目上的分布式架构</strong>（大家多注意区分分布式系统和分布式架构，下文分布式多代表分布式架构）。</p>
+<p><img src="/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/fenbushi2.png"
+	width="913"
+	height="822"
+	srcset="/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/fenbushi2_hu_d384229e4bdca601.png 480w, /p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/fenbushi2_hu_fc24668e017c1dba.png 1024w"
+	loading="lazy"
+	
+		alt="分布式"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="111"
+		data-flex-basis="266px"
+	
+></p>
+<h3 id="什么是微服务架构">什么是微服务架构？
+</h3><p><strong>微服务概念</strong></p>
+<blockquote>
+<p>微服务是指将一个大型的单体应用系统按照业务功能<strong>拆分成一组小型、独立运行的服务</strong>。</p></blockquote>
+<p>概念也很明确了，就是将一个应用的复杂业务拆分成多个单独的服务，通俗来理解就是<strong>同样是看病的地方，小诊所一个屋子负责很多病症，而大医院则分成了各个科室，不同科室负责不同的病症</strong>。所以微服务架构与单体架构的不同点在于<strong>同样是很多功能，微服务架构将各个功能拆分开来了</strong>。</p>
+<p><strong>单体架构VS微服务架构</strong></p>
+<p><img src="/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/weifuwu.png"
+	width="1964"
+	height="1177"
+	srcset="/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/weifuwu_hu_e4e6324438be84ec.png 480w, /p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/weifuwu_hu_2391bb816c3c7795.png 1024w"
+	loading="lazy"
+	
+		alt="微服务"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="166"
+		data-flex-basis="400px"
+	
+></p>
+<p>需注意：单体架构是<strong>模块</strong>，微服务架构是<strong>服务</strong>，区别在于各个模块互相依赖，而各个服务之间则是互相联系，也就是说对于单体架构，若模块1出问题可能其他模块也都崩溃，但若服务1出问题（若分离的够好）并不影响其他服务。</p>
+<blockquote>
+<p>关于API网关的讲解具体可见我其他博客。</p></blockquote>
+<p><strong>微服务优势</strong></p>
+<p>由上述可以看出，微服务架构相较于单体架构耦合度低了很多，对于大型复杂业务，若采用单体架构，则很容易写成“屎山”，后期极难维护，而若一个地方写错了，则整个程序可能都会崩溃，对于大型复杂业务根本不可取，但是若采用微服务架构，将不同业务分离开来，架构清晰很多的同时也便于团队合作开发，且若某个地方写错了虽然很难避免影响到其他服务，但可以最小化影响，同时可以快速定位到错误的服务，微服务架构主要是为了<strong>降低项目业务耦合度和增加协作效率</strong>。</p>
+<p>但凡事都有两面性，对于简单项目则更建议采用单体架构，否则便是徒增开发难度和复杂度，且如果代码水平不够的话很容易把微服务写成“屎山”，反倒不如单体架构优雅。<strong>架构没有绝对优劣，合适才是最优解</strong>。</p>
+<h3 id="什么是服务器集群">什么是服务器集群？
+</h3><p><strong>服务器集群概念</strong></p>
+<blockquote>
+<p>同一个服务的多台服务器同时运行，用于提高性能和可用性。</p></blockquote>
+<p>从概念就可以直接理解什么是服务器集群，通俗理解就是<strong>你开了个店，生意太好了，所以你又开了几个分店</strong>。</p>
+<p><strong>这里很容易和分布式系统混淆，大家先不必纠结，先理解服务器集群即可，下面会进行论述。</strong></p>
+<p><strong>服务器集群图</strong></p>
+<p><img src="/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/jiqun.png"
+	width="1290"
+	height="796"
+	srcset="/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/jiqun_hu_b20d03852d7b648c.png 480w, /p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/jiqun_hu_82a74a34fbe8e3c1.png 1024w"
+	loading="lazy"
+	
+		alt="集群"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="162"
+		data-flex-basis="388px"
+	
+></p>
+<blockquote>
+<p>关于负载均衡以及各种负载均衡策略的讲解具体可见我其他博客。</p></blockquote>
+<p><strong>服务器集群的优势</strong></p>
+<p>其实由图可以很容易看出，现在你有了三个运行服务A的服务器，现在你拥有了三倍的性能，同时若其中某个服务器宕机，整个服务仍然正常运行，所以我们可以知道服务器集群的优势是<strong>提高项目的性能和稳定性</strong>。</p>
+<h2 id="三者的区别与联系">三者的区别与联系
+</h2><p>很多人把三者看为A包含B，B包含C的集合形式，这样其实是不正确的。</p>
+<p>需明确，<strong>三者虽关联密切，但并不是同种类型的东西，它们关注的角度不同，无法用集合的形式表示</strong>，就像对于字母、数字、符号，你无法用A包含B，B包含C的集合形式来解释他们的关系。</p>
+<blockquote>
+<p>作者见解：可以将三者套入医院，分布式就是一个医院有不同场所，各个场所做着不同的事情但共同完成整个流程（系统层面），微服务就是医院有很多科室，各个科室负责不同的病症（业务方面），服务器集群就是多个科室负责相同的病症。</p></blockquote>
+<h3 id="区别">区别
+</h3><p><strong>关注点不同</strong></p>
+<ul>
+<li>
+<p><strong>分布式系统</strong> 是一种<strong>系统形态</strong>，强调多节点协同工作来完成同一任务；</p>
+</li>
+<li>
+<p><strong>微服务架构</strong> 是一种<strong>设计思想</strong>，强调将业务拆分成多个独立的小服务；</p>
+</li>
+<li>
+<p><strong>服务器集群</strong> 则是一种<strong>部署方式</strong>，强调同一服务运行在多台服务器上以提升性能和可靠性。</p>
+</li>
+</ul>
+<p><strong>解决的问题不同</strong></p>
+<ul>
+<li><strong>分布式系统</strong>解决了<strong>性能和可拓展性</strong>的问题。</li>
+<li><strong>微服务架构</strong>解决了<strong>业务复杂度和耦合度</strong>的问题。</li>
+<li><strong>分布式系统</strong>解决了<strong>高并发和高可用</strong>的问题。</li>
+</ul>
+<h3 id="联系">联系
+</h3><p>微服务架构既然拆分了业务，那若将各个业务分别部署到不同的<strong>单个服务器</strong>岂不是<strong>即提升了性能又降低了耦合度</strong>，这便是<strong>微服务和分布式的结合</strong>。</p>
+<p>而若将微服务的每个业务分别部署到不同的<strong>多个服务器</strong>上岂不是<strong>又提升了并发性能和高可用</strong>，这便是<strong>微服务和分布式和服务器集群的结合</strong>。</p>
+<p>对于单纯的服务器集群来说，每个服务器运行是同一模块，则不能算为分布式，但是若<strong>运行不同的模块（各个模块之间不以业务划分）<strong>则可以称之为</strong>服务器集群+分布式</strong>，而若<strong>运行不同的服务（各个服务之间以业务划分）</strong>，则可称为<strong>服务器集群+分布式+微服务架构</strong>。</p>
+<h2 id="两两之间论述">两两之间论述
+</h2><h3 id="分布式和微服务的论述">分布式和微服务的论述
+</h3><p>分布式更强调系统层面的模块分离和物理的部署，将不同模块部署到不同服务器，重点在于<strong>提升性能和可拓展性</strong>。</p>
+<p>微服务更强调业务上的解耦，将整个项目拆分为不同的服务，重点在于<strong>降低业务复杂度和耦合度</strong>。</p>
+<p>但现实中一般的微服务架构都是分布式，因为一般大型公司将服务拆分后往往会部署到不同的服务器。</p>
+<p>而若项目拆分后依旧将全部服务部署到同一服务器，则不属于分布式。</p>
+<p><strong>是微服务但并不是分布式的例子</strong></p>
+<p><img src="/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/weifuwu2.png"
+	width="910"
+	height="1068"
+	srcset="/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/weifuwu2_hu_c1269dbe68a3938.png 480w, /p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/weifuwu2_hu_e86455f877abb0f1.png 1024w"
+	loading="lazy"
+	
+		alt="非分布式"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="85"
+		data-flex-basis="204px"
+	
+></p>
+<h3 id="分布式和集群的论述">分布式和集群的论述
+</h3><p>分布式架构是将不同模块部署到不同的服务器。</p>
+<p>服务器集群是将同一业务部署到不同的服务器。</p>
+<p>不难看出，对于服务器集群，各个服务器运行的是同一业务，而分布式的各个服务器则是不同模块。</p>
+<p>所以单纯的服务器集群并不是分布式，单纯的分布式也不是集群，而若将分布式的各个模块都部署到多台服务器上，则即是服务器集群，又是</p>
+<p>分布式。</p>
+<p><strong>单独的分布式系统</strong></p>
+<p><img src="/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/fenbushi2.png"
+	width="913"
+	height="822"
+	srcset="/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/fenbushi2_hu_d384229e4bdca601.png 480w, /p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/fenbushi2_hu_fc24668e017c1dba.png 1024w"
+	loading="lazy"
+	
+		alt="分布式"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="111"
+		data-flex-basis="266px"
+	
+></p>
+<p><strong>单独的服务器集群</strong></p>
+<p><img src="/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/jiqun.png"
+	width="1290"
+	height="796"
+	srcset="/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/jiqun_hu_b20d03852d7b648c.png 480w, /p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/jiqun_hu_82a74a34fbe8e3c1.png 1024w"
+	loading="lazy"
+	
+		alt="集群"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="162"
+		data-flex-basis="388px"
+	
+></p>
+<p><strong>即是分布式架构又是服务器集群</strong></p>
+<p><img src="/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/jiqun2.png"
+	width="1231"
+	height="817"
+	srcset="/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/jiqun2_hu_56658ee21a25197.png 480w, /p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/jiqun2_hu_2f8a946ff9563639.png 1024w"
+	loading="lazy"
+	
+		alt="负载均衡"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="150"
+		data-flex-basis="361px"
+	
+></p>
+<h3 id="微服务和集群的论述">微服务和集群的论述
+</h3><p>其实两者很容易区分，并无太多关联，一般的微服务也不是集群，一般的集群也不是微服务。</p>
+<p>但是现实中应该采用微服务的项目都进行了集群部署，因为这样便兼顾了<strong>降低业务耦合度和提高高并发、高可用能力</strong>。</p>
+<p><strong>微服务非集群</strong></p>
+<p><img src="/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/weifuwu3.png"
+	width="887"
+	height="1098"
+	srcset="/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/weifuwu3_hu_b20e528657adaccf.png 480w, /p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/weifuwu3_hu_b3ddca6fe19b4857.png 1024w"
+	loading="lazy"
+	
+		alt="微服务3"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="80"
+		data-flex-basis="193px"
+	
+></p>
+<p><strong>微服务集群</strong></p>
+<p><img src="/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/jiqun3.png"
+	width="1305"
+	height="1054"
+	srcset="/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/jiqun3_hu_2dc957fe463a2b35.png 480w, /p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/jiqun3_hu_4235d174c162f571.png 1024w"
+	loading="lazy"
+	
+		alt="微服务集群"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="123"
+		data-flex-basis="297px"
+	
+></p>
+<h2 id="一些加深理解的问题">一些加深理解的问题
+</h2><p>1.分布式和微服务各自的目的?</p>
+<blockquote>
+<p>分布式是为了分散物理压力和增加可拓展性。</p>
+<p>微服务是为了降低业务的复杂度和耦合度。</p></blockquote>
+<p>2.分布式一定是微服务吗？</p>
+<blockquote>
+<p>并不一定，若分布式的各部分是按照业务划分的则属于微服务，反之则不属于。</p></blockquote>
+<p>3.微服务一定是分布式吗？</p>
+<blockquote>
+<p>并不一定，若微服务部署到不同的服务器则属于分布式，反之不属于。</p></blockquote>
+<p>4.如何区分分布式和集群？</p>
+<blockquote>
+<p>只需要看服务器上部署的是不是同一模块，若是同一模块则是集群，若是不同模块则是分布式，若有多个服务器相同模块，同时多个又不同，则是分布式又是集群。</p></blockquote>
+<p>5.要给作者点赞吗？</p>
+<blockquote>
+<p>既然你都看到这里了，说明对作者所说还是有点认可的，那么点个吧，又不花钱(手动滑稽)。</p></blockquote>
+<p><strong>写于文尾</strong>:本文章仅为作者个人理解，若有遗漏或错误欢迎点出，若有不同观点欢迎交流，若哪部分不是特别理解可以在评论区指出或者私信作者。最后祝愿大家都有一个好的未来，每天开心。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+        
+            <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
+        
+            <a href="/tags/%E9%9B%86%E7%BE%A4/">集群</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3%E5%BC%80%E5%8F%913%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%8A%9F%E8%83%BD%E7%9A%84%E5%AE%9E%E7%8E%B0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3%E5%BC%80%E5%8F%913%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%8A%9F%E8%83%BD%E7%9A%84%E5%AE%9E%E7%8E%B0/face.308bc6dd864bac6a4c334c6bb8eaa14e_hu_db9206ebf21853fb.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Go微服务网关开发（3）：负载均衡功能的实现"
+                        
+                        data-hash="md5-MIvG3YZLrGpMM0xruOqhTg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go微服务网关开发（3）：负载均衡功能的实现</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B32%E8%B7%AF%E7%94%B1%E8%BD%AC%E5%8F%91%E5%8A%9F%E8%83%BD%E7%9A%84%E5%AE%9E%E7%8E%B0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B32%E8%B7%AF%E7%94%B1%E8%BD%AC%E5%8F%91%E5%8A%9F%E8%83%BD%E7%9A%84%E5%AE%9E%E7%8E%B0/face.308bc6dd864bac6a4c334c6bb8eaa14e_hu_db9206ebf21853fb.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Go微服务网关（2）：路由转发功能的实现"
+                        
+                        data-hash="md5-MIvG3YZLrGpMM0xruOqhTg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go微服务网关（2）：路由转发功能的实现</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B31-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D/">
+        
+        
+            <div class="article-image">
+                <img src="/p/go%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B31-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D/face.308bc6dd864bac6a4c334c6bb8eaa14e_hu_db9206ebf21853fb.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Go微服务网关(1): 基本概念介绍"
+                        
+                        data-hash="md5-MIvG3YZLrGpMM0xruOqhTg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Go微服务网关(1): 基本概念介绍</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 LeoninCS
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.73835f80eecd2596933b144ee3da5f636e1442446b08d1582bb318999dcf5313.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

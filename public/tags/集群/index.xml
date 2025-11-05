@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>集群 on Leon的小屋</title>
+        <link>http://localhost:1313/tags/%E9%9B%86%E7%BE%A4/</link>
+        <description>Recent content in 集群 on Leon的小屋</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>LeoninCS</copyright>
+        <lastBuildDate>Wed, 05 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/%E9%9B%86%E7%BE%A4/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>图文讲解：分布式系统、微服务架构与服务器集群的区别与联系</title>
+        <link>http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/</link>
+        <pubDate>Wed, 05 Nov 2025 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/</guid>
+        <description>&lt;img src="http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/face.png" alt="Featured image of post 图文讲解：分布式系统、微服务架构与服务器集群的区别与联系" /&gt;&lt;h1 id=&#34;图文讲解分布式系统微服务架构与服务器集群的区别与联系&#34;&gt;图文讲解：分布式系统、微服务架构与服务器集群的区别与联系
+&lt;/h1&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+&lt;/h2&gt;&lt;p&gt;目前越来越多的公司都在用微服务架构，可以说微服务就是未来的主流，所以对其&lt;strong&gt;了解乃至深入理解&lt;/strong&gt;是很有必要的，本文采用&lt;strong&gt;图文结合&lt;/strong&gt;的方式系统地介绍了什么是&lt;strong&gt;分布式系统、微服务架构、服务器集群&lt;/strong&gt;，方便初学者了解，同时也介绍了三者之间的区别与联系，并给出了作者的见解，方便进阶读者深入理解。&lt;/p&gt;
+&lt;p&gt;由于作者水平有限，所以如本文有什么错误欢迎指出，读者若有什么不同的观点也欢迎评论区或者私信交流。&lt;/p&gt;
+&lt;h2 id=&#34;基础概念讲解&#34;&gt;基础概念讲解
+&lt;/h2&gt;&lt;h3 id=&#34;什么是分布式系统&#34;&gt;什么是分布式系统?
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;分布式系统概念&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;由多台独立计算机通过网络协同工作、共同完成同一任务，对外表现为一个整体的系统。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;由概念我们不难理解，分布式系统就是多台计算机合作完成同一项任务，通俗理解来讲就是*&amp;ldquo;一个篱笆三个桩，一个好汉三个帮”*，一个计算机完成不了的任务通过多个计算机来完成。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;分布式系统图&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/fenbushi.png&#34;
+	width=&#34;848&#34;
+	height=&#34;658&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/fenbushi_hu_5cfa7dc063aaf362.png 480w, http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/fenbushi_hu_3ee3639212971eb6.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;分布式架构图&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;128&#34;
+		data-flex-basis=&#34;309px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;分布式优势&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;相信从图中可以看出，现在6个计算机负责同一个任务，那么每个计算机所承受的压力变为了原来的六分之一,若性能还是不够的话还可以再加计算机，可见分布式系统的出现主要是为了&lt;strong&gt;在性能方面分散压力同时提高可拓展性&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;需注意各个计算机负责的点不同，否则就变成了服务器集群。（你可以先跳过此段话看完后面再来理解）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;该图为类比到项目上的分布式架构&lt;/strong&gt;（大家多注意区分分布式系统和分布式架构，下文分布式多代表分布式架构）。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/fenbushi2.png&#34;
+	width=&#34;913&#34;
+	height=&#34;822&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/fenbushi2_hu_d384229e4bdca601.png 480w, http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/fenbushi2_hu_fc24668e017c1dba.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;分布式&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;111&#34;
+		data-flex-basis=&#34;266px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;什么是微服务架构&#34;&gt;什么是微服务架构？
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;微服务概念&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;微服务是指将一个大型的单体应用系统按照业务功能&lt;strong&gt;拆分成一组小型、独立运行的服务&lt;/strong&gt;。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;概念也很明确了，就是将一个应用的复杂业务拆分成多个单独的服务，通俗来理解就是&lt;strong&gt;同样是看病的地方，小诊所一个屋子负责很多病症，而大医院则分成了各个科室，不同科室负责不同的病症&lt;/strong&gt;。所以微服务架构与单体架构的不同点在于&lt;strong&gt;同样是很多功能，微服务架构将各个功能拆分开来了&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;单体架构VS微服务架构&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/weifuwu.png&#34;
+	width=&#34;1964&#34;
+	height=&#34;1177&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/weifuwu_hu_e4e6324438be84ec.png 480w, http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/weifuwu_hu_2391bb816c3c7795.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;微服务&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;166&#34;
+		data-flex-basis=&#34;400px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;需注意：单体架构是&lt;strong&gt;模块&lt;/strong&gt;，微服务架构是&lt;strong&gt;服务&lt;/strong&gt;，区别在于各个模块互相依赖，而各个服务之间则是互相联系，也就是说对于单体架构，若模块1出问题可能其他模块也都崩溃，但若服务1出问题（若分离的够好）并不影响其他服务。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;关于API网关的讲解具体可见我其他博客。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;微服务优势&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;由上述可以看出，微服务架构相较于单体架构耦合度低了很多，对于大型复杂业务，若采用单体架构，则很容易写成“屎山”，后期极难维护，而若一个地方写错了，则整个程序可能都会崩溃，对于大型复杂业务根本不可取，但是若采用微服务架构，将不同业务分离开来，架构清晰很多的同时也便于团队合作开发，且若某个地方写错了虽然很难避免影响到其他服务，但可以最小化影响，同时可以快速定位到错误的服务，微服务架构主要是为了&lt;strong&gt;降低项目业务耦合度和增加协作效率&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;但凡事都有两面性，对于简单项目则更建议采用单体架构，否则便是徒增开发难度和复杂度，且如果代码水平不够的话很容易把微服务写成“屎山”，反倒不如单体架构优雅。&lt;strong&gt;架构没有绝对优劣，合适才是最优解&lt;/strong&gt;。&lt;/p&gt;
+&lt;h3 id=&#34;什么是服务器集群&#34;&gt;什么是服务器集群？
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;服务器集群概念&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;同一个服务的多台服务器同时运行，用于提高性能和可用性。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;从概念就可以直接理解什么是服务器集群，通俗理解就是&lt;strong&gt;你开了个店，生意太好了，所以你又开了几个分店&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;这里很容易和分布式系统混淆，大家先不必纠结，先理解服务器集群即可，下面会进行论述。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;服务器集群图&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/jiqun.png&#34;
+	width=&#34;1290&#34;
+	height=&#34;796&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/jiqun_hu_b20d03852d7b648c.png 480w, http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/jiqun_hu_82a74a34fbe8e3c1.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;集群&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;162&#34;
+		data-flex-basis=&#34;388px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;关于负载均衡以及各种负载均衡策略的讲解具体可见我其他博客。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;服务器集群的优势&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;其实由图可以很容易看出，现在你有了三个运行服务A的服务器，现在你拥有了三倍的性能，同时若其中某个服务器宕机，整个服务仍然正常运行，所以我们可以知道服务器集群的优势是&lt;strong&gt;提高项目的性能和稳定性&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;三者的区别与联系&#34;&gt;三者的区别与联系
+&lt;/h2&gt;&lt;p&gt;很多人把三者看为A包含B，B包含C的集合形式，这样其实是不正确的。&lt;/p&gt;
+&lt;p&gt;需明确，&lt;strong&gt;三者虽关联密切，但并不是同种类型的东西，它们关注的角度不同，无法用集合的形式表示&lt;/strong&gt;，就像对于字母、数字、符号，你无法用A包含B，B包含C的集合形式来解释他们的关系。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;作者见解：可以将三者套入医院，分布式就是一个医院有不同场所，各个场所做着不同的事情但共同完成整个流程（系统层面），微服务就是医院有很多科室，各个科室负责不同的病症（业务方面），服务器集群就是多个科室负责相同的病症。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h3 id=&#34;区别&#34;&gt;区别
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;关注点不同&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;分布式系统&lt;/strong&gt; 是一种&lt;strong&gt;系统形态&lt;/strong&gt;，强调多节点协同工作来完成同一任务；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;微服务架构&lt;/strong&gt; 是一种&lt;strong&gt;设计思想&lt;/strong&gt;，强调将业务拆分成多个独立的小服务；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;服务器集群&lt;/strong&gt; 则是一种&lt;strong&gt;部署方式&lt;/strong&gt;，强调同一服务运行在多台服务器上以提升性能和可靠性。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;解决的问题不同&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;分布式系统&lt;/strong&gt;解决了&lt;strong&gt;性能和可拓展性&lt;/strong&gt;的问题。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;微服务架构&lt;/strong&gt;解决了&lt;strong&gt;业务复杂度和耦合度&lt;/strong&gt;的问题。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;分布式系统&lt;/strong&gt;解决了&lt;strong&gt;高并发和高可用&lt;/strong&gt;的问题。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;联系&#34;&gt;联系
+&lt;/h3&gt;&lt;p&gt;微服务架构既然拆分了业务，那若将各个业务分别部署到不同的&lt;strong&gt;单个服务器&lt;/strong&gt;岂不是&lt;strong&gt;即提升了性能又降低了耦合度&lt;/strong&gt;，这便是&lt;strong&gt;微服务和分布式的结合&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;而若将微服务的每个业务分别部署到不同的&lt;strong&gt;多个服务器&lt;/strong&gt;上岂不是&lt;strong&gt;又提升了并发性能和高可用&lt;/strong&gt;，这便是&lt;strong&gt;微服务和分布式和服务器集群的结合&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;对于单纯的服务器集群来说，每个服务器运行是同一模块，则不能算为分布式，但是若&lt;strong&gt;运行不同的模块（各个模块之间不以业务划分）&lt;strong&gt;则可以称之为&lt;/strong&gt;服务器集群+分布式&lt;/strong&gt;，而若&lt;strong&gt;运行不同的服务（各个服务之间以业务划分）&lt;/strong&gt;，则可称为&lt;strong&gt;服务器集群+分布式+微服务架构&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;两两之间论述&#34;&gt;两两之间论述
+&lt;/h2&gt;&lt;h3 id=&#34;分布式和微服务的论述&#34;&gt;分布式和微服务的论述
+&lt;/h3&gt;&lt;p&gt;分布式更强调系统层面的模块分离和物理的部署，将不同模块部署到不同服务器，重点在于&lt;strong&gt;提升性能和可拓展性&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;微服务更强调业务上的解耦，将整个项目拆分为不同的服务，重点在于&lt;strong&gt;降低业务复杂度和耦合度&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;但现实中一般的微服务架构都是分布式，因为一般大型公司将服务拆分后往往会部署到不同的服务器。&lt;/p&gt;
+&lt;p&gt;而若项目拆分后依旧将全部服务部署到同一服务器，则不属于分布式。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;是微服务但并不是分布式的例子&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/weifuwu2.png&#34;
+	width=&#34;910&#34;
+	height=&#34;1068&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/weifuwu2_hu_c1269dbe68a3938.png 480w, http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/weifuwu2_hu_e86455f877abb0f1.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;非分布式&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;85&#34;
+		data-flex-basis=&#34;204px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;分布式和集群的论述&#34;&gt;分布式和集群的论述
+&lt;/h3&gt;&lt;p&gt;分布式架构是将不同模块部署到不同的服务器。&lt;/p&gt;
+&lt;p&gt;服务器集群是将同一业务部署到不同的服务器。&lt;/p&gt;
+&lt;p&gt;不难看出，对于服务器集群，各个服务器运行的是同一业务，而分布式的各个服务器则是不同模块。&lt;/p&gt;
+&lt;p&gt;所以单纯的服务器集群并不是分布式，单纯的分布式也不是集群，而若将分布式的各个模块都部署到多台服务器上，则即是服务器集群，又是&lt;/p&gt;
+&lt;p&gt;分布式。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;单独的分布式系统&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/fenbushi2.png&#34;
+	width=&#34;913&#34;
+	height=&#34;822&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/fenbushi2_hu_d384229e4bdca601.png 480w, http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/fenbushi2_hu_fc24668e017c1dba.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;分布式&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;111&#34;
+		data-flex-basis=&#34;266px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;单独的服务器集群&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/jiqun.png&#34;
+	width=&#34;1290&#34;
+	height=&#34;796&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/jiqun_hu_b20d03852d7b648c.png 480w, http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/jiqun_hu_82a74a34fbe8e3c1.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;集群&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;162&#34;
+		data-flex-basis=&#34;388px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;即是分布式架构又是服务器集群&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/jiqun2.png&#34;
+	width=&#34;1231&#34;
+	height=&#34;817&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/jiqun2_hu_56658ee21a25197.png 480w, http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/jiqun2_hu_2f8a946ff9563639.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;负载均衡&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;150&#34;
+		data-flex-basis=&#34;361px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;微服务和集群的论述&#34;&gt;微服务和集群的论述
+&lt;/h3&gt;&lt;p&gt;其实两者很容易区分，并无太多关联，一般的微服务也不是集群，一般的集群也不是微服务。&lt;/p&gt;
+&lt;p&gt;但是现实中应该采用微服务的项目都进行了集群部署，因为这样便兼顾了&lt;strong&gt;降低业务耦合度和提高高并发、高可用能力&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;微服务非集群&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/weifuwu3.png&#34;
+	width=&#34;887&#34;
+	height=&#34;1098&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/weifuwu3_hu_b20e528657adaccf.png 480w, http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/weifuwu3_hu_b3ddca6fe19b4857.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;微服务3&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;80&#34;
+		data-flex-basis=&#34;193px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;微服务集群&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/jiqun3.png&#34;
+	width=&#34;1305&#34;
+	height=&#34;1054&#34;
+	srcset=&#34;http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/jiqun3_hu_2dc957fe463a2b35.png 480w, http://localhost:1313/p/%E5%9B%BE%E6%96%87%E8%AE%B2%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB/jiqun3_hu_4235d174c162f571.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;微服务集群&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;123&#34;
+		data-flex-basis=&#34;297px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;一些加深理解的问题&#34;&gt;一些加深理解的问题
+&lt;/h2&gt;&lt;p&gt;1.分布式和微服务各自的目的?&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;分布式是为了分散物理压力和增加可拓展性。&lt;/p&gt;
+&lt;p&gt;微服务是为了降低业务的复杂度和耦合度。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;2.分布式一定是微服务吗？&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;并不一定，若分布式的各部分是按照业务划分的则属于微服务，反之则不属于。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;3.微服务一定是分布式吗？&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;并不一定，若微服务部署到不同的服务器则属于分布式，反之不属于。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;4.如何区分分布式和集群？&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;只需要看服务器上部署的是不是同一模块，若是同一模块则是集群，若是不同模块则是分布式，若有多个服务器相同模块，同时多个又不同，则是分布式又是集群。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;5.要给作者点赞吗？&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;既然你都看到这里了，说明对作者所说还是有点认可的，那么点个吧，又不花钱(手动滑稽)。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;写于文尾&lt;/strong&gt;:本文章仅为作者个人理解，若有遗漏或错误欢迎点出，若有不同观点欢迎交流，若哪部分不是特别理解可以在评论区指出或者私信作者。最后祝愿大家都有一个好的未来，每天开心。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

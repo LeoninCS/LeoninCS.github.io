@@ -40,7 +40,7 @@ image: "face.png"
 
 **分布式系统图**
 
-![分布式架构图](D:\Users\23299\Desktop\File\LeonsBlog\content\post\图文讲解分布式、微服务、集群\fenbushi.png)
+![分布式架构图](fenbushi.png)
 
 **分布式优势**
 
@@ -50,7 +50,7 @@ image: "face.png"
 
 **该图为类比到项目上的分布式架构**（大家多注意区分分布式系统和分布式架构，下文分布式多代表分布式架构）。 
 
-![分布式](D:\Users\23299\Desktop\File\LeonsBlog\content\post\图文讲解分布式、微服务、集群\fenbushi2.png)
+![分布式](fenbushi2.png)
 
 ### 什么是微服务架构？
 
@@ -62,7 +62,7 @@ image: "face.png"
 
 **单体架构VS微服务架构**
 
-![微服务](D:\Users\23299\Desktop\File\LeonsBlog\content\post\图文讲解分布式、微服务、集群\weifuwu.png)
+![微服务](weifuwu.png)
 
 需注意：单体架构是**模块**，微服务架构是**服务**，区别在于各个模块互相依赖，而各个服务之间则是互相联系，也就是说对于单体架构，若模块1出问题可能其他模块也都崩溃，但若服务1出问题（若分离的够好）并不影响其他服务。
 
@@ -86,7 +86,7 @@ image: "face.png"
 
 **服务器集群图**
 
-![集群](D:\Users\23299\Desktop\File\LeonsBlog\content\post\图文讲解分布式、微服务、集群\jiqun.png)
+![集群](jiqun.png)
 
 > 关于负载均衡以及各种负载均衡策略的讲解具体可见我其他博客。
 
@@ -140,7 +140,7 @@ image: "face.png"
 
 **是微服务但并不是分布式的例子**
 
-![非分布式](D:\Users\23299\Desktop\File\LeonsBlog\content\post\图文讲解分布式、微服务、集群\weifuwu2.png)
+![非分布式](weifuwu2.png)
 
 ### 分布式和集群的论述
 
@@ -156,15 +156,15 @@ image: "face.png"
 
 **单独的分布式系统**
 
-![分布式](D:\Users\23299\Desktop\File\LeonsBlog\content\post\图文讲解分布式、微服务、集群\fenbushi2.png)
+![分布式](fenbushi2.png)
 
 **单独的服务器集群**
 
-![集群](D:\Users\23299\Desktop\File\LeonsBlog\content\post\图文讲解分布式、微服务、集群\jiqun.png)
+![集群](jiqun.png)
 
 **即是分布式架构又是服务器集群**
 
-![负载均衡](D:\Users\23299\Desktop\File\LeonsBlog\content\post\图文讲解分布式、微服务、集群\jiqun2.png)
+![负载均衡](jiqun2.png)
 
 ### 微服务和集群的论述
 
@@ -174,11 +174,11 @@ image: "face.png"
 
 **微服务非集群**
 
-![微服务3](D:\Users\23299\Desktop\File\LeonsBlog\content\post\图文讲解分布式、微服务、集群\weifuwu3.png)
+![微服务3](weifuwu3.png)
 
 **微服务集群**
 
-![微服务集群](D:\Users\23299\Desktop\File\LeonsBlog\content\post\图文讲解分布式、微服务、集群\jiqun3.png)
+![微服务集群](jiqun3.png)
 
 ## 一些加深理解的问题
 
