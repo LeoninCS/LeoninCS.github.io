@@ -1531,12 +1531,12 @@ using namespace __gnu_pbds;
 using i64 = long long;
 using pll = pair<i64,i64>;
 using ordered_set = tree<pll,null_type,less<pll>,rb_tree_tag,tree_order_statistics_node_update>;
-
+//注意，ost里面存的是pair<i64,i64>
 void solve()
 {
     ordered_set ost;
     //ost.find_by_order(k); 返回下标为k的对象的指针
-    //ost.order_of_key(val); 返回小于等于val的数的个数， val可以不存在
+    //ost.order_of_key(val); 返回小于等于val的数的个数， val可以不存在   判断逻辑:小于val.first或者等于val.first且x.second小于val.second,如果first和second都相同则不计入。
     //ost.lower_bound();
     //ost.upper_bound();
     //ost.insert(val);
